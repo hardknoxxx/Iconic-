@@ -1,31 +1,42 @@
 "use client";
 
-import { motion } from "framer-motion";
-import type { ReactNode } from "react";
+import { useEffect, useRef, type ElementType, type ReactNode } from "react";
 
-const ease = [0.23, 1, 0.32, 1] as const;
-
-/** Entrada suave al hacer scroll: solo una vez, con desplazamiento corto. */
+/**
+ * Entrada al hacer scroll, una sola vez. El estado oculto solo existe si el script de <head>
+ * marcó <html class="js">, así que sin JavaScript el contenido se ve igual.
+ * Es una transición CSS (transform + opacity): corre fuera del hilo principal y se puede interrumpir.
+ */
 export function Reveal({
   children,
   delay = 0,
-  className,
-  as = "div",
+  className = "",
+  as: Tag = "div",
 }: {
   children: ReactNode;
   delay?: number;
   className?: string;
-  as?: "div" | "li" | "p" | "h2" | "h3";
+  as?: ElementType;
 }) {
-  const Tag = motion[as];
+  const ref = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+    const io = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        el.classList.add("is-in");
+        io.disconnect();
+      },
+      { rootMargin: "0px 0px -10% 0px" },
+    );
+    io.observe(el);
+    return () => io.disconnect();
+  }, []);
+
   return (
-    <Tag
-      className={className}
-      initial={{ opacity: 0, y: 18 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "0px 0px -12% 0px" }}
-      transition={{ duration: 0.7, ease, delay }}
-    >
+    <Tag ref={ref} className={`reveal ${className}`} style={{ "--reveal-delay": `${delay}s` }}>
       {children}
     </Tag>
   );

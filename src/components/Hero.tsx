@@ -6,18 +6,14 @@ import { generalMessage, whatsappUrl } from "@/lib/whatsapp";
 import { AnchorLink } from "./AnchorLink";
 import { Star } from "./Star";
 
-const lines = ["Una prenda,", "mil maneras", "de usarla."];
+const lines = ["Una prenda,", "mil maneras."];
 
 export function Hero() {
   return (
     <section id="inicio" className="relative bg-paper pt-[var(--header-h)]">
       <div className="mx-auto grid max-w-[1480px] gap-10 px-5 pb-14 pt-8 md:px-10 lg:min-h-[calc(100dvh-var(--header-h))] lg:grid-cols-12 lg:items-center lg:gap-6 lg:pb-16 lg:pt-6">
         <div className="lg:col-span-7">
-          <p className="fade-up text-sm font-medium uppercase tracking-[0.18em] text-graphite">
-            Ropa urbana unisex<span className="hidden sm:inline"> · Puerto Iguazú</span>
-          </p>
-
-          <h1 className="display mt-5 text-[clamp(2.75rem,7.4vw,6.6rem)] md:mt-6">
+          <h1 className="display text-[clamp(2.75rem,7.4vw,6.6rem)]">
             {lines.map((line, i) => (
               <span key={line} className="block overflow-hidden pb-[0.08em]">
                 <span className="rise" style={{ animationDelay: `${120 + i * 110}ms` }}>
@@ -28,7 +24,7 @@ export function Hero() {
           </h1>
 
           <p className="fade-up mt-6 max-w-md text-base leading-relaxed text-graphite md:mt-8 md:text-lg" style={{ animationDelay: "520ms" }}>
-            Tops, pantalones, vestidos y ropa para salir de noche. Variedad y calidad para cada estilo y cada ocasión.
+            Ropa urbana unisex en Puerto Iguazú. Tops, pantalones, vestidos y prendas para salir de noche, con variedad y calidad para cada ocasión.
           </p>
 
           <div className="fade-up mt-7 flex flex-col gap-3 sm:flex-row md:mt-9" style={{ animationDelay: "640ms" }}>
@@ -47,7 +43,7 @@ export function Hero() {
               href={whatsappUrl(generalMessage)}
               target="_blank"
               rel="noopener noreferrer"
-              className="press inline-flex h-12 items-center justify-center gap-2 rounded-full border border-ink px-8 md:h-14 text-base font-medium hover:bg-ink hover:text-white"
+              className="press inline-flex h-12 items-center justify-center gap-2 rounded-full bg-line px-8 text-base font-medium text-ink hover:bg-ink hover:text-white md:h-14"
             >
               <MessageCircle size={18} aria-hidden />
               Contactar por WhatsApp

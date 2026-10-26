@@ -19,8 +19,7 @@ export function Contact() {
     <section id="contacto" aria-labelledby="contacto-titulo" className="bg-white py-20 md:py-32">
       <div className="mx-auto max-w-[1480px] px-5 md:px-10">
         <Reveal>
-          <p className="text-sm font-medium uppercase tracking-[0.18em] text-graphite">Contacto</p>
-          <h2 id="contacto-titulo" className="display mt-4 text-[clamp(2.5rem,6.4vw,6rem)]">
+          <h2 id="contacto-titulo" className="display h2-display">
             Pasá por el local
           </h2>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-graphite">
@@ -31,7 +30,7 @@ export function Contact() {
 
         <div className="mt-14 grid gap-x-12 gap-y-12 lg:grid-cols-12">
           <Reveal className="lg:col-span-5">
-            <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em]">
+            <h3 className="flex items-center gap-2 text-base font-semibold">
               <MapPin size={18} aria-hidden /> Dirección
             </h3>
             <address className="mt-4 text-xl not-italic leading-snug">
@@ -45,7 +44,7 @@ export function Contact() {
               href={address.mapsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="press mt-6 inline-flex h-12 items-center gap-2 rounded-full border border-ink px-6 text-sm font-medium hover:bg-ink hover:text-white"
+              className="press mt-6 inline-flex h-12 items-center gap-2 rounded-full bg-line px-6 text-sm font-medium text-ink hover:bg-ink hover:text-white"
             >
               Cómo llegar
               <span className="sr-only"> (se abre en Google Maps)</span>
@@ -61,12 +60,10 @@ export function Contact() {
           </Reveal>
 
           <Reveal delay={0.08} className="lg:col-span-7">
-            <h3 className="flex items-center gap-2 text-sm font-semibold uppercase tracking-[0.14em]">
-              <Phone size={18} aria-hidden /> Teléfonos y WhatsApp
-            </h3>
-            <ul className="mt-4 divide-y divide-line border-y border-line">
+            <h3 className="sr-only">Teléfonos y WhatsApp</h3>
+            <ul className="mt-4 space-y-2">
               {phones.map((p) => (
-                <li key={p.tel} className="flex flex-col gap-3 py-4 sm:flex-row sm:items-center sm:justify-between">
+                <li key={p.tel} className="flex flex-col gap-3 bg-paper p-4 sm:flex-row sm:items-center sm:justify-between">
                   <span className="display text-3xl md:text-4xl">{p.display}</span>
                   <span className="flex gap-2">
                     <a
@@ -81,7 +78,7 @@ export function Contact() {
                     </a>
                     <a
                       href={`tel:${p.tel}`}
-                      className="press inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full border border-ink px-6 text-sm font-medium hover:bg-ink hover:text-white sm:flex-none"
+                      className="press inline-flex h-12 flex-1 items-center justify-center gap-2 rounded-full bg-line px-6 text-sm font-medium text-ink hover:bg-ink hover:text-white sm:flex-none"
                     >
                       <Phone size={18} aria-hidden />
                       Llamar
@@ -94,14 +91,14 @@ export function Contact() {
 
             <div className="mt-10 grid gap-10 sm:grid-cols-2">
               <div>
-                <h3 className="text-sm font-semibold uppercase tracking-[0.14em]">Redes</h3>
+                <h3 className="text-base font-semibold">Redes</h3>
                 <ul className="mt-4 flex flex-col gap-2">
                   <li>
                     <a
                       href={social.instagram.url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="press inline-flex h-12 items-center gap-3 rounded-full border border-line px-5 text-sm font-medium hover:border-ink"
+                      className="press inline-flex h-12 items-center gap-3 rounded-full bg-paper px-5 text-sm font-medium hover:bg-line"
                     >
                       <InstagramIcon /> {social.instagram.handle}
                       <span className="sr-only"> en Instagram (se abre en una pestaña nueva)</span>
@@ -113,7 +110,7 @@ export function Contact() {
                         href={social.facebook.url}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="press inline-flex h-12 items-center gap-3 rounded-full border border-line px-5 text-sm font-medium hover:border-ink"
+                        className="press inline-flex h-12 items-center gap-3 rounded-full bg-paper px-5 text-sm font-medium hover:bg-line"
                       >
                         <FacebookIcon /> {social.facebook.handle}
                         <span className="sr-only"> en Facebook (se abre en una pestaña nueva)</span>
@@ -124,7 +121,7 @@ export function Contact() {
               </div>
 
               <div>
-                <h3 className="text-sm font-semibold uppercase tracking-[0.14em]">Medios de pago</h3>
+                <h3 className="text-base font-semibold">Medios de pago</h3>
                 <ul className="mt-4 flex flex-wrap gap-2">
                   {payments.map((m) => {
                     const Icon = paymentIcons[m.id];

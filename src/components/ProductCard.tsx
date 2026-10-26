@@ -39,7 +39,7 @@ export function ProductCard({ product, open, onToggle, priority }: Props) {
         height={product.image.height}
         priority={priority}
         sizes="(min-width: 1024px) 25vw, 50vw"
-        className="h-auto w-full transition-transform duration-[700ms] ease-[var(--ease-out-strong)] group-hover:scale-[1.035] group-data-[open=true]:scale-[1.035] motion-reduce:transition-none"
+        className="h-auto w-full transition-transform duration-500 ease-[var(--ease-out-strong)] group-hover:scale-[1.03] group-data-[open=true]:scale-[1.03] motion-reduce:transition-none"
       />
 
       <button
@@ -61,16 +61,16 @@ export function ProductCard({ product, open, onToggle, priority }: Props) {
         className="pointer-events-none absolute inset-x-2 bottom-2 z-20 flex translate-y-3 items-end justify-between gap-2 bg-white p-2.5 opacity-0 transition-[opacity,transform] duration-300 ease-[var(--ease-out-strong)] group-has-[:focus-visible]:pointer-events-auto group-has-[:focus-visible]:translate-y-0 group-has-[:focus-visible]:opacity-100 group-hover:pointer-events-auto group-hover:translate-y-0 group-hover:opacity-100 group-data-[open=true]:pointer-events-auto group-data-[open=true]:translate-y-0 group-data-[open=true]:opacity-100 motion-reduce:translate-y-0 motion-reduce:transition-none md:inset-x-3 md:bottom-3 md:block md:p-4"
       >
         <div className="min-w-0">
-          <p className="hidden text-[0.65rem] font-medium uppercase tracking-[0.16em] text-graphite md:block">
+          <p className="hidden text-[0.8125rem] font-medium text-graphite md:block">
             {category}
           </p>
-          <h3 className="line-clamp-2 text-[0.7rem] font-semibold leading-snug text-ink md:mt-1 md:line-clamp-none md:text-base">{product.name}</h3>
-          <p className="mt-0.5 text-[0.7rem] text-graphite md:mt-1 md:text-sm">{formatPrice(product.price)}</p>
+          <h3 className="line-clamp-2 text-[0.8125rem] font-semibold leading-snug text-ink md:mt-0.5 md:line-clamp-none md:text-base">{product.name}</h3>
+          <p className="mt-0.5 text-[0.8125rem] text-graphite md:mt-1 md:text-sm">{formatPrice(product.price)}</p>
           {product.sizes && product.sizes.length > 0 && (
-            <p className="mt-1 text-xs text-graphite">Talles: {product.sizes.join(" · ")}</p>
+            <p className="mt-1 text-[0.8125rem] text-graphite">Talles: {product.sizes.join(" · ")}</p>
           )}
           {product.description && (
-            <p className="mt-2 hidden text-xs leading-relaxed text-graphite md:block">{product.description}</p>
+            <p className="mt-2 hidden text-[0.8125rem] leading-relaxed text-graphite md:block">{product.description}</p>
           )}
         </div>
         <a

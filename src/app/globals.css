@@ -22,6 +22,7 @@
 
 html {
   background: var(--color-white);
+  -webkit-tap-highlight-color: transparent;
   scroll-padding-top: var(--header-h);
   -webkit-text-size-adjust: 100%;
 }
@@ -48,6 +49,11 @@ body {
 }
 
 /* Titulares: Archivo expandido, peso alto, tracking cerrado. */
+/* Un solo tamaño para los títulos de sección. */
+.h2-display {
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+}
+
 .display {
   font-family: var(--font-display);
   font-weight: 800;
@@ -55,6 +61,17 @@ body {
   letter-spacing: -0.035em;
   line-height: 0.92;
   text-wrap: balance;
+}
+
+/* Controles: sin retardo de doble toque ni selección del rótulo al mantener presionado. */
+button,
+a,
+[role="button"] {
+  touch-action: manipulation;
+}
+button {
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 /* Botones: respuesta táctil inmediata, sin transition: all. */
@@ -131,4 +148,16 @@ body {
 }
 .star-spin {
   animation: star-spin 28s linear infinite;
+}
+
+/* Reveal al hacer scroll: oculto solo cuando el script de <head> marcó html.js. */
+.reveal {
+  transition:
+    opacity 600ms var(--ease-out-strong),
+    transform 600ms var(--ease-out-strong);
+  transition-delay: var(--reveal-delay, 0s);
+}
+.js .reveal:not(.is-in) {
+  opacity: 0;
+  transform: translateY(14px);
 }

@@ -48,10 +48,8 @@ export function Header() {
   return (
     <>
       <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-300 ease-out ${
-          scrolled || open
-            ? "border-b border-line bg-white/85 backdrop-blur-md"
-            : "border-b border-transparent bg-transparent"
+        className={`fixed inset-x-0 top-0 z-50 transition-[background-color] duration-200 ease-[var(--ease-out-strong)] ${
+          scrolled || open ? "bg-white" : "bg-transparent"
         }`}
       >
         <div className="mx-auto flex h-[var(--header-h)] max-w-[1480px] items-center justify-between px-5 md:px-10">
@@ -81,7 +79,7 @@ export function Header() {
                     className="group relative py-2 text-ink"
                   >
                     {item.label}
-                    <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-ink transition-transform duration-300 ease-[var(--ease-out-strong)] group-hover:scale-x-100" />
+                    <span className="absolute inset-x-0 -bottom-0.5 h-px origin-left scale-x-0 bg-ink transition-transform duration-200 ease-[var(--ease-out-strong)] group-hover:scale-x-100" />
                   </a>
                 </li>
               ))}
@@ -145,7 +143,7 @@ export function Header() {
                       ease: [0.23, 1, 0.32, 1],
                       delay: 0.04 * i,
                     }}
-                    className="border-b border-line"
+                    className=""
                   >
                     <a
                       href={item.href}
@@ -174,7 +172,7 @@ export function Header() {
                   href={social.instagram.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="press inline-flex h-14 items-center justify-center gap-2 rounded-full border border-ink text-base font-medium"
+                  className="press inline-flex h-14 items-center justify-center gap-2 rounded-full bg-paper text-base font-medium"
                 >
                   <InstagramIcon />
                   {social.instagram.handle}

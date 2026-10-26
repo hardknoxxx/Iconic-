@@ -13,7 +13,7 @@ export function Footer() {
         </div>
 
         <nav aria-label="Pie de página" className="lg:col-span-2">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-white/70">Navegación</h2>
+          <h2 className="text-base font-semibold text-white/70">Navegación</h2>
           <ul className="mt-4 space-y-2">
             {nav.map((item) => (
               <li key={item.href}>
@@ -26,7 +26,7 @@ export function Footer() {
         </nav>
 
         <div className="lg:col-span-3">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-white/70">Local y contacto</h2>
+          <h2 className="text-base font-semibold text-white/70">Local y contacto</h2>
           <address className="mt-4 space-y-3 not-italic text-white/90">
             <p>
               {address.street}
@@ -48,7 +48,7 @@ export function Footer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram de ICONIC (se abre en una pestaña nueva)"
-                className="press inline-flex size-11 items-center justify-center rounded-full border border-white/30 hover:bg-white hover:text-ink"
+                className="press inline-flex size-11 items-center justify-center rounded-full bg-white/10 hover:bg-white hover:text-ink"
               >
                 <InstagramIcon />
               </a>
@@ -60,7 +60,7 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label="Facebook de ICONIC (se abre en una pestaña nueva)"
-                  className="press inline-flex size-11 items-center justify-center rounded-full border border-white/30 hover:bg-white hover:text-ink"
+                  className="press inline-flex size-11 items-center justify-center rounded-full bg-white/10 hover:bg-white hover:text-ink"
                 >
                   <FacebookIcon />
                 </a>
@@ -70,7 +70,7 @@ export function Footer() {
         </div>
 
         <div className="lg:col-span-3">
-          <h2 className="text-sm font-semibold uppercase tracking-[0.14em] text-white/70">Medios de pago</h2>
+          <h2 className="text-base font-semibold text-white/70">Medios de pago</h2>
           <ul className="mt-4 space-y-1 text-white/90">
             {payments.map((m) => (
               <li key={m.id}>{m.label}</li>
@@ -79,7 +79,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="border-t border-white/15">
+      <div>
         <p className="mx-auto max-w-[1480px] px-5 py-6 text-sm text-white/70 md:px-10">
           © ICONIC. Todos los derechos reservados.
         </p>

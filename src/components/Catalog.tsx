@@ -67,8 +67,7 @@ export function Catalog() {
         <div className="mx-auto max-w-[1480px] px-5 md:px-10">
           <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
             <Reveal>
-              <p className="text-sm font-medium uppercase tracking-[0.18em] text-graphite">Colección</p>
-              <h2 id="coleccion-titulo" className="display mt-4 text-[clamp(2.5rem,6vw,5.5rem)]">
+              <h2 id="coleccion-titulo" className="display h2-display">
                 Lo que hay
                 <br />
                 en el local
@@ -93,10 +92,10 @@ export function Catalog() {
                   setFilter(chip.id);
                   setOpenId(null);
                 }}
-                className={`press inline-flex h-11 items-center gap-2 rounded-full border px-5 text-sm font-medium ${
+                className={`press inline-flex h-11 items-center gap-2 rounded-full px-5 text-sm font-medium ${
                   filter === chip.id
-                    ? "border-ink bg-ink text-white"
-                    : "border-line bg-white text-ink hover:border-ink"
+                    ? "bg-ink text-white"
+                    : "bg-paper text-ink hover:bg-line"
                 }`}
               >
                 {chip.label}
@@ -106,23 +105,23 @@ export function Catalog() {
           </div>
 
           <div className="mt-8 columns-2 gap-3 md:gap-5 lg:columns-4" aria-live="polite">
-            <AnimatePresence mode="popLayout" initial={false}>
+            <AnimatePresence mode="popLayout">
               {visible.map((product, i) => (
                 <motion.div
                   key={product.id}
                   layout="position"
-                  initial={{ opacity: 0, y: 12 }}
-                  animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0 }}
-                  transition={{ duration: 0.35, ease: [0.23, 1, 0.32, 1], delay: Math.min(i, 6) * 0.03 }}
+                  transition={{ duration: 0.2, ease: [0.23, 1, 0.32, 1] }}
                   className="break-inside-avoid"
                 >
-                  <ProductCard
-                    product={product}
-                    open={openId === product.id}
-                    onToggle={() => setOpenId((cur) => (cur === product.id ? null : product.id))}
-                    priority={i < 2}
-                  />
+                  <Reveal delay={(i % 4) * 0.06}>
+                    <ProductCard
+                      product={product}
+                      open={openId === product.id}
+                      onToggle={() => setOpenId((cur) => (cur === product.id ? null : product.id))}
+                      priority={i < 2}
+                    />
+                  </Reveal>
                 </motion.div>
               ))}
             </AnimatePresence>
@@ -137,8 +136,7 @@ export function Catalog() {
       <section id="categorias" aria-labelledby="categorias-titulo" className="bg-paper py-20 md:py-28">
         <div className="mx-auto max-w-[1480px] px-5 md:px-10">
           <Reveal>
-            <p className="text-sm font-medium uppercase tracking-[0.18em] text-graphite">Categorías</p>
-            <h2 id="categorias-titulo" className="display mt-4 text-[clamp(2.5rem,6vw,5.5rem)]">
+            <h2 id="categorias-titulo" className="display h2-display">
               Elegí por dónde empezar
             </h2>
           </Reveal>
