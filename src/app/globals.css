@@ -8,7 +8,7 @@
   --color-line: #e5e5e5;
   --color-paper: #f7f7f7;
   /* Único color de acento: la escena de scroll y los botones sobre ella. */
-  --color-accent: #c6f135;
+  --color-accent: #d5b3b5;
 
   --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;

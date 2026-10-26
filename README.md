@@ -26,7 +26,7 @@ npm run build && npm start
 
 ## Decisiones técnicas
 
-- **Portada con scroll animado** (`src/components/HeroScene.tsx`): sección fijada con GSAP ScrollTrigger; una mancha se deforma con MorphSVG entre escenas y las prendas (recortes en `public/images/cutouts/`) entran por los costados. El color de acento está en `--color-accent` (`globals.css`). Con movimiento reducido se muestra una versión estática.
+- **Portada con scroll animado** (`src/components/HeroScene.tsx`): sección fijada con GSAP ScrollTrigger; una mancha se deforma con MorphSVG entre escenas y las prendas (recortes en `public/images/cutouts/`) entran por los costados. El color de acento (rosa arcilla) está en `--color-accent` (`globals.css`). Con movimiento reducido se muestra una versión estática.
 
 - **Tarjetas de producto**: hover/foco en mouse (CSS), toque para abrir/cerrar en táctil; el botón de WhatsApp es independiente.
 - **Lenis** corre sobre el scroll nativo, por eso convive con `whileInView`/`useScroll` de Framer Motion; se suaviza solo con rueda (no en táctil) y se desactiva con `prefers-reduced-motion`.
