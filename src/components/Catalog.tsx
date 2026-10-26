@@ -159,7 +159,7 @@ export function Catalog() {
                     ) : (
                       <div className="on-dark flex size-full flex-col justify-between bg-ink p-5 text-white">
                         <Image src="/brand/logo-light.png" alt="" width={900} height={363} className="h-6 w-auto self-start" />
-                        <p className="display text-3xl md:text-4xl">Consultá disponibilidad</p>
+                        <p className="display text-xl md:text-2xl">Consultá disponibilidad</p>
                       </div>
                     )}
                   </div>

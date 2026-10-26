@@ -7,15 +7,17 @@ import { useAnchorScroll } from "@/lib/useAnchorScroll";
 export function AnchorLink({
   href,
   className,
+  ariaLabel,
   children,
 }: {
   href: `#${string}`;
   className?: string;
+  ariaLabel?: string;
   children: ReactNode;
 }) {
   const { onAnchorClick } = useAnchorScroll();
   return (
-    <a href={href} onClick={onAnchorClick} className={className}>
+    <a href={href} onClick={onAnchorClick} className={className} aria-label={ariaLabel}>
       {children}
     </a>
   );

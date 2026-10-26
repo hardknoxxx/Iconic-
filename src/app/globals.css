@@ -29,6 +29,12 @@ html {
   -webkit-text-size-adjust: 100%;
 }
 
+p,
+li {
+  /* evita palabras sueltas en la última línea */
+  text-wrap: pretty;
+}
+
 body {
   background: var(--color-white);
   color: var(--color-ink);
@@ -165,6 +171,9 @@ body {
     opacity 600ms var(--ease-out-strong),
     transform 600ms var(--ease-out-strong);
   transition-delay: var(--reveal-delay, 0s);
+}
+.reveal-slow {
+  transition-duration: 1400ms, 1400ms;
 }
 .js .reveal:not(.is-in) {
   opacity: 0;

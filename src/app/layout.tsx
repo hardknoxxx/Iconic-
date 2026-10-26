@@ -1,11 +1,12 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Geist } from "next/font/google";
+import { Archivo, Jost } from "next/font/google";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import { site } from "@/data/site";
 import { Providers } from "@/components/Providers";
 
-const body = Geist({ variable: "--font-body", subsets: ["latin"] });
+/* Jost: geométrica, cercana al trazo del logo; se usa para el texto corrido. */
+const body = Jost({ variable: "--font-body", subsets: ["latin"] });
 
 const display = Archivo({
   variable: "--font-display",
