@@ -4,6 +4,7 @@ import { editorial } from "@/data/products";
 import { address } from "@/data/site";
 import { generalMessage, whatsappUrl } from "@/lib/whatsapp";
 import { AnchorLink } from "./AnchorLink";
+import { Star } from "./Star";
 
 const lines = ["Una prenda,", "mil maneras", "de usarla."];
 
@@ -69,6 +70,8 @@ export function Hero() {
               className="settle object-cover"
             />
           </div>
+
+          <Star className="star-spin absolute -left-8 bottom-16 z-10 size-20 md:-left-12 md:size-28 lg:-left-14 lg:size-32" />
 
           <div className="absolute -bottom-6 -right-2 w-[34%] border-[6px] border-paper md:-right-6">
             <Image

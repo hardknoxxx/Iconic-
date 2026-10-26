@@ -123,3 +123,12 @@ body {
 .settle {
   animation: settle 1400ms var(--ease-out-strong) both;
 }
+
+@keyframes star-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+.star-spin {
+  animation: star-spin 28s linear infinite;
+}
