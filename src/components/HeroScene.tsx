@@ -128,7 +128,7 @@ function Scene() {
             scrollTrigger: {
               trigger: root.current,
               start: "top top",
-              end: () => "+=" + window.innerHeight * 5.5,
+              end: () => "+=" + window.innerHeight * (desktop ? 3.4 : 3.8),
               pin: true,
               scrub: 0.6,
               anticipatePin: 1,
@@ -222,7 +222,7 @@ function Scene() {
           <h1 className="display display-xl mx-auto text-[clamp(2.9rem,9vw,8.5rem)]">
             Una prenda,
             <br />
-            mil maneras.
+            <span className="serif-accent">mil maneras.</span>
           </h1>
           <p className="mx-auto mt-5 max-w-md text-base leading-relaxed text-ink md:mt-7 md:text-xl">
             Ropa urbana unisex en Puerto Iguazú: tops, pantalones, vestidos y prendas para salir de noche.
@@ -247,7 +247,7 @@ function Scene() {
             }`}
             style={{ visibility: "hidden" }}
           >
-            <h2 className="display text-3xl md:text-4xl">{card.title}</h2>
+            <h2 className="serif text-4xl md:text-5xl">{card.title}</h2>
             <p className="mt-2 text-base leading-relaxed text-graphite">{card.text}</p>
             <AnchorLink href="#coleccion" className="press mt-4 inline-flex h-11 items-center rounded-full bg-paper px-5 text-sm font-medium hover:bg-line">
               Ver la colección
@@ -260,7 +260,7 @@ function Scene() {
           <h2 className="display display-xl mx-auto text-[clamp(2.6rem,8vw,7rem)]">
             Probátelo
             <br />
-            en el local.
+            <span className="serif-accent">en el local.</span>
           </h2>
           <p className="mx-auto mt-5 text-lg text-ink">
             {address.street}, {address.city.split(",")[0]}.
@@ -288,7 +288,7 @@ function StaticScene() {
         <h1 className="display display-xl text-[clamp(2.9rem,9vw,8.5rem)]">
           Una prenda,
           <br />
-          mil maneras.
+          <span className="serif-accent">mil maneras.</span>
         </h1>
         <p className="mt-6 max-w-md text-lg leading-relaxed">
           Ropa urbana unisex en Puerto Iguazú: tops, pantalones, vestidos y prendas para salir de noche.
@@ -306,7 +306,7 @@ function StaticScene() {
           {([groups.a[1], groups.b[0], groups.c[0]] as Piece[]).map((p, i) => (
             <li key={p.src} className="bg-white p-5">
               <Image src={p.src} alt={p.alt} width={p.w} height={p.h} sizes="(min-width: 768px) 30vw, 90vw" className="h-64 w-full object-contain" />
-              <h2 className="display mt-4 text-3xl">{cards[i].title}</h2>
+              <h2 className="serif mt-4 text-4xl">{cards[i].title}</h2>
               <p className="mt-1 text-graphite">{cards[i].text}</p>
             </li>
           ))}

@@ -278,3 +278,21 @@ body {
     outline: 1px solid currentColor;
   }
 }
+
+/* Dos voces, como en una revista de moda: titular pesado de calle (.display) y cursiva editorial. */
+.serif {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-style: italic;
+  font-weight: 450;
+  font-optical-sizing: auto;
+  letter-spacing: -0.01em;
+}
+.serif-accent {
+  font-family: var(--font-editorial), Georgia, serif;
+  font-style: italic;
+  font-weight: 450;
+  font-stretch: normal;
+  font-optical-sizing: auto;
+  letter-spacing: -0.025em;
+  font-size: 1.08em;
+}

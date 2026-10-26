@@ -70,11 +70,11 @@ export function Catalog() {
               <h2 id="coleccion-titulo" className="display h2-display">
                 Lo que hay
                 <br />
-                en el local
+                <span className="serif-accent">en el local</span>
               </h2>
             </Reveal>
             <Reveal delay={0.1} className="max-w-xs text-graphite">
-              <p className="text-base leading-relaxed">
+              <p className="serif text-xl leading-snug md:text-2xl">
                 <span className="hidden [@media(hover:hover)_and_(pointer:fine)]:inline">Pasá el cursor</span>
                 <span className="[@media(hover:hover)_and_(pointer:fine)]:hidden">Tocá una prenda</span> para ver el
                 detalle y consultar por WhatsApp.
@@ -137,7 +137,7 @@ export function Catalog() {
         <div className="mx-auto max-w-[1480px] px-5 md:px-10">
           <Reveal>
             <h2 id="categorias-titulo" className="display h2-display">
-              Elegí por dónde empezar
+              Elegí por <span className="serif-accent">dónde empezar</span>
             </h2>
           </Reveal>
 
@@ -166,7 +166,7 @@ export function Catalog() {
                   <div className="mt-4 flex items-start justify-between gap-3">
                     <div>
                       <h3 className="display text-2xl md:text-3xl">{cat.label}</h3>
-                      <p className="mt-1 text-sm text-graphite">
+                      <p className="serif mt-1 text-base text-graphite">
                         {cat.image
                           ? `${count} ${count === 1 ? "prenda" : "prendas"} en la colección`
                           : "Escribinos por WhatsApp"}

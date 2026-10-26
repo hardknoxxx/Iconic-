@@ -20,11 +20,13 @@ export function Brand() {
         <div className="lg:col-span-6">
           <Reveal>
             <h2 id="marca-titulo" className="display h2-display">
-              Para cada ocasión
+              Para cada
+              <br />
+              <span className="serif-accent">ocasión</span>
             </h2>
           </Reveal>
           <Reveal delay={0.1}>
-            <p className="mt-8 max-w-lg text-lg leading-relaxed text-white/80">
+            <p className="serif mt-8 max-w-xl text-2xl leading-snug text-white/90 md:text-3xl">
               ICONIC es ropa urbana unisex para adultos, con una experiencia de compra simple y cercana: pasás por el
               local o nos escribís por WhatsApp.
             </p>

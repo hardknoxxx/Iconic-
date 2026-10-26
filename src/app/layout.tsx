@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Jost } from "next/font/google";
+import { Archivo, Bodoni_Moda, Jost } from "next/font/google";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import { site } from "@/data/site";
@@ -7,6 +7,15 @@ import { Providers } from "@/components/Providers";
 
 /* Jost: geométrica, cercana al trazo del logo; se usa para el texto corrido. */
 const body = Jost({ variable: "--font-body", subsets: ["latin"] });
+
+/* Voz editorial: Didone de revista de moda, en cursiva. Convive con el titular pesado de calle. */
+const editorial = Bodoni_Moda({
+  variable: "--font-editorial",
+  subsets: ["latin"],
+  style: ["italic"],
+  axes: ["opsz"],
+  weight: "variable",
+});
 
 const display = Archivo({
   variable: "--font-display",
@@ -41,7 +50,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es-AR" className={`${body.variable} ${display.variable}`} suppressHydrationWarning>
+    <html lang="es-AR" className={`${body.variable} ${display.variable} ${editorial.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>

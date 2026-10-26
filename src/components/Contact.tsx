@@ -20,7 +20,9 @@ export function Contact() {
       <div className="mx-auto max-w-[1480px] px-5 md:px-10">
         <Reveal>
           <h2 id="contacto-titulo" className="display h2-display">
-            Pasá por el local
+            Pasá por
+            <br />
+            <span className="serif-accent">el local</span>
           </h2>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-graphite">
             Te esperamos en {address.street} para que veas y te pruebes las prendas. Si preferís, escribinos por
