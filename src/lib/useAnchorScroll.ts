@@ -13,11 +13,13 @@ export function useAnchorScroll() {
     (hash: string) => {
       const el = document.querySelector<HTMLElement>(hash);
       if (!el) return false;
-      const offset = hash === "#inicio" ? 0 : -parseFloat(getComputedStyle(document.documentElement).fontSize) * 4;
+      // Posición absoluta calculada a mano: el hero está fijado (pin) y no se puede medir como un ancla común.
+      const header = parseFloat(getComputedStyle(document.documentElement).fontSize) * 4.25;
+      const y = hash === "#inicio" ? 0 : Math.round(el.getBoundingClientRect().top + window.scrollY - header);
       if (lenis) {
-        lenis.scrollTo(el, { offset, immediate: reduce, duration: 1.2 });
+        lenis.scrollTo(y, { immediate: reduce, duration: 1.4 });
       } else {
-        el.scrollIntoView({ behavior: reduce ? "auto" : "smooth", block: "start" });
+        window.scrollTo({ top: y, behavior: reduce ? "auto" : "smooth" });
       }
       history.replaceState(null, "", hash);
       return true;

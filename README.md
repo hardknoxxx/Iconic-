@@ -1,7 +1,7 @@
 # ICONIC — Landing page
 
 Landing de ICONIC, tienda de ropa urbana unisex en Puerto Iguazú (Misiones, Argentina).
-Next.js (App Router) · React · TypeScript · Tailwind CSS v4 · Framer Motion · Lenis · Lucide.
+Next.js (App Router) · React · TypeScript · Tailwind CSS v4 · GSAP (ScrollTrigger + MorphSVG) · Framer Motion · Lenis · Lucide.
 
 ```bash
 npm install
@@ -25,6 +25,8 @@ npm run build && npm start
 - Para sumar fotos de **Vestidos**: completar `image` de esa categoría (hoy es un bloque tipográfico que abre WhatsApp).
 
 ## Decisiones técnicas
+
+- **Portada con scroll animado** (`src/components/HeroScene.tsx`): sección fijada con GSAP ScrollTrigger; una mancha se deforma con MorphSVG entre escenas y las prendas (recortes en `public/images/cutouts/`) entran por los costados. El color de acento está en `--color-accent` (`globals.css`). Con movimiento reducido se muestra una versión estática.
 
 - **Tarjetas de producto**: hover/foco en mouse (CSS), toque para abrir/cerrar en táctil; el botón de WhatsApp es independiente.
 - **Lenis** corre sobre el scroll nativo, por eso convive con `whileInView`/`useScroll` de Framer Motion; se suaviza solo con rueda (no en táctil) y se desactiva con `prefers-reduced-motion`.

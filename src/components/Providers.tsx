@@ -3,6 +3,7 @@
 import { MotionConfig, useReducedMotion } from "framer-motion";
 import { ReactLenis } from "lenis/react";
 import type { ReactNode } from "react";
+import { GsapLenis } from "./GsapLenis";
 
 /**
  * Lenis hace scroll suave sobre el scroll nativo (no usa transforms), así que convive
@@ -18,6 +19,7 @@ export function Providers({ children }: { children: ReactNode }) {
         root
         options={{ autoRaf: true, duration: 1.1, smoothWheel: !reduce, anchors: false }}
       >
+        <GsapLenis />
         {children}
       </ReactLenis>
     </MotionConfig>
