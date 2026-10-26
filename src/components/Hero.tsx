@@ -3,7 +3,6 @@ import { ArrowDown, MessageCircle } from "lucide-react";
 import { editorial } from "@/data/products";
 import { address } from "@/data/site";
 import { generalMessage, whatsappUrl } from "@/lib/whatsapp";
-import { Flower } from "./Flower";
 import { AnchorLink } from "./AnchorLink";
 
 const lines = ["Una prenda,", "mil maneras", "de usarla."];
@@ -81,8 +80,6 @@ export function Hero() {
               className="h-auto w-full"
             />
           </div>
-
-          <Flower className="absolute -left-4 bottom-4 z-10 aspect-square w-[42%] md:-left-12 md:bottom-8 lg:-left-20 lg:w-[46%]" />
         </div>
       </div>
     </section>
