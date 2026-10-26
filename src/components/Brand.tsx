@@ -1,9 +1,6 @@
 "use client";
 
-import Image from "next/image";
-import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
-import { editorial } from "@/data/products";
+import { ImageAccordion } from "./ImageAccordion";
 import { Reveal } from "./Reveal";
 
 const values = [
@@ -13,14 +10,9 @@ const values = [
 ];
 
 export function Brand() {
-  const ref = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
-  const y = useTransform(scrollYProgress, [0, 1], [30, -50]);
-
   return (
     <section
       id="marca"
-      ref={ref}
       aria-labelledby="marca-titulo"
       className="on-dark bg-ink py-20 text-white md:py-32"
     >
@@ -48,27 +40,10 @@ export function Brand() {
           </ul>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[34rem] lg:col-span-6 lg:max-w-none lg:pl-10">
-          <div className="relative w-[78%]">
-            <Image
-              src={editorial.brandMain.src}
-              alt={editorial.brandMain.alt}
-              width={editorial.brandMain.width}
-              height={editorial.brandMain.height}
-              sizes="(min-width: 1024px) 30vw, 70vw"
-              className="h-auto w-full"
-            />
-          </div>
-          <motion.div style={{ y }} className="absolute -bottom-10 right-0 w-[48%] border-[6px] border-ink">
-            <Image
-              src={editorial.brandSecondary.src}
-              alt={editorial.brandSecondary.alt}
-              width={editorial.brandSecondary.width}
-              height={editorial.brandSecondary.height}
-              sizes="(min-width: 1024px) 20vw, 40vw"
-              className="h-auto w-full"
-            />
-          </motion.div>
+        <div className="mx-auto w-full max-w-[34rem] lg:col-span-6 lg:max-w-none lg:pl-10">
+          <Reveal delay={0.1}>
+            <ImageAccordion width="100%" height="clamp(22rem, 68svh, 36rem)" />
+          </Reveal>
         </div>
       </div>
     </section>
