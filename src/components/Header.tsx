@@ -49,7 +49,7 @@ export function Header() {
     <>
       <header
         className={`fixed inset-x-0 top-0 z-50 transition-[background-color] duration-200 ease-[var(--ease-out-strong)] ${
-          scrolled || open ? "bg-white" : "bg-transparent"
+          scrolled && !open ? "header-glass" : open ? "bg-white" : "bg-transparent"
         }`}
       >
         <div className="mx-auto flex h-[var(--header-h)] max-w-[1480px] items-center justify-between px-5 md:px-10">
@@ -122,10 +122,13 @@ export function Header() {
         {open && (
           <motion.div
             id="menu-movil"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2, ease: "easeOut" }}
+            /* Nace del botón de menú (arriba a la derecha) y vuelve por el mismo camino;
+               se "materializa" con blur + escala, no con un simple fundido. */
+            initial={{ opacity: 0, scale: 0.97, filter: "blur(8px)" }}
+            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+            exit={{ opacity: 0, scale: 0.97, filter: "blur(8px)" }}
+            transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
+            style={{ transformOrigin: "100% 0%" }}
             className="fixed inset-x-0 bottom-0 top-[var(--header-h)] z-40 overflow-y-auto bg-white md:hidden"
           >
             <nav

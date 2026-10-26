@@ -42,7 +42,7 @@ export function Brand() {
 
         <div className="mx-auto w-full max-w-[34rem] lg:col-span-6 lg:max-w-none lg:pl-10">
           <Reveal delay={0.1}>
-            <ImageAccordion width="100%" height="clamp(22rem, 68svh, 36rem)" />
+            <ImageAccordion width="100%" height="clamp(22rem, 68svh, 36rem)" bounce={0} />
           </Reveal>
         </div>
       </div>

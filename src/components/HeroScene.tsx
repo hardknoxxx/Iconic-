@@ -219,7 +219,7 @@ function Scene() {
 
         {/* Portada */}
         <div className="hero-text absolute inset-x-0 top-[calc(var(--header-h)+1.5rem)] z-20 px-5 text-center md:top-[17vh]">
-          <h1 className="display mx-auto text-[clamp(2.9rem,9vw,8.5rem)]">
+          <h1 className="display display-xl mx-auto text-[clamp(2.9rem,9vw,8.5rem)]">
             Una prenda,
             <br />
             mil maneras.
@@ -257,7 +257,7 @@ function Scene() {
 
         {/* Cierre */}
         <div className="final absolute inset-x-0 top-1/2 z-20 -translate-y-1/2 px-5 text-center" style={{ visibility: "hidden" }}>
-          <h2 className="display mx-auto text-[clamp(2.6rem,8vw,7rem)]">
+          <h2 className="display display-xl mx-auto text-[clamp(2.6rem,8vw,7rem)]">
             Probátelo
             <br />
             en el local.
@@ -285,7 +285,7 @@ function StaticScene() {
   return (
     <section id="inicio" className="bg-accent pt-[calc(var(--header-h)+2rem)]">
       <div className="mx-auto max-w-[1480px] px-5 pb-16 md:px-10 md:pb-24">
-        <h1 className="display text-[clamp(2.9rem,9vw,8.5rem)]">
+        <h1 className="display display-xl text-[clamp(2.9rem,9vw,8.5rem)]">
           Una prenda,
           <br />
           mil maneras.

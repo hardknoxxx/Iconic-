@@ -408,7 +408,7 @@ export function ImageAccordion({
   /* how far the swell carries into its neighbours, 0..100 */
   reach = 35,
   /* the spring, 0..100 — see springOf in ./spring */
-  bounce = 10,
+  bounce = 0,
   /* the air between pictures, in px. The corner follows it. */
   gap = 8,
   /* ICONIC: the strip's size. Defaults are the original 340x300. */
@@ -430,8 +430,20 @@ export function ImageAccordion({
   const g = clamp(gap, 0, 20);
   const k = lift(open);
 
+  /* ICONIC: tapping outside the strip closes the open picture on touch. */
+  const strip = useRef<HTMLDivElement>(null);
+  useEffect(() => {
+    if (at === null) return;
+    const onDown = (e: PointerEvent) => {
+      if (e.pointerType === "touch" && !strip.current?.contains(e.target as Node)) setAt(null);
+    };
+    document.addEventListener("pointerdown", onDown);
+    return () => document.removeEventListener("pointerdown", onDown);
+  }, [at]);
+
   return (
     <div
+      ref={strip}
       className="acc"
       /* the same radius the pictures take — see RMAX */
       style={{ width, height, gap: g, borderRadius: Math.min(RMAX, g) }}
@@ -443,6 +455,10 @@ export function ImageAccordion({
          leave — so every copy on the wall would finish its
          demo with a picture still held open. */
       onPointerOut={(e) => {
+        /* ICONIC: a finger lifting is not the pointer leaving. On touch the open
+           picture stays open until another one is tapped or the page is tapped
+           elsewhere (see the effect above). */
+        if (e.pointerType === "touch") return;
         const to = e.relatedTarget as Node | null;
         if (!to || !e.currentTarget.contains(to)) setAt(null);
       }}

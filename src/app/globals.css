@@ -54,15 +54,22 @@ body {
 /* Un solo tamaño para los títulos de sección. */
 .h2-display {
   font-size: clamp(2.5rem, 6vw, 5.5rem);
+  letter-spacing: -0.035em;
+  line-height: 0.95;
 }
 
 .display {
   font-family: var(--font-display);
   font-weight: 800;
   font-stretch: 112%;
-  letter-spacing: -0.035em;
-  line-height: 0.92;
+  /* Tracking y leading dependen del tamaño: el texto chico respira más, el grande se cierra. */
+  letter-spacing: -0.02em;
+  line-height: 1.05;
   text-wrap: balance;
+}
+.display-xl {
+  letter-spacing: -0.045em;
+  line-height: 0.9;
 }
 
 /* Controles: sin retardo de doble toque ni selección del rótulo al mantener presionado. */
@@ -236,4 +243,29 @@ body {
      Each one still re-frames instead of stretching. */
   object-fit: cover;
   -webkit-user-drag: none;
+}
+
+/* Material del header: translúcido con el contenido pasando por debajo. */
+.header-glass {
+  background-color: rgb(255 255 255 / 0.72);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  backdrop-filter: blur(20px) saturate(180%);
+}
+@media (prefers-reduced-transparency: reduce) {
+  .header-glass {
+    background-color: #ffffff;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+@media (prefers-contrast: more) {
+  .header-glass {
+    background-color: #ffffff;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+    border-bottom: 1px solid var(--color-ink);
+  }
+  .press {
+    outline: 1px solid currentColor;
+  }
 }
