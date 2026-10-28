@@ -1,7 +1,7 @@
 # ICONIC — Landing page
 
 Landing de ICONIC, tienda de ropa urbana unisex en Puerto Iguazú (Misiones, Argentina).
-Next.js (App Router) · React · TypeScript · Tailwind CSS v4 · GSAP (ScrollTrigger) · Framer Motion · Lenis · WebGL propio. Tipografías: Barlow Condensed (titulares), Instrument Serif (textos de apertura) + Hanken Grotesk (interfaz). Paleta monocroma.
+Next.js (App Router) · React · TypeScript · Tailwind CSS v4 · GSAP (ScrollTrigger) · Framer Motion · Lenis · WebGL propio. Tipografías: Barlow Condensed (titulares), Instrument Serif (apertura y pies), DM Mono (rótulos) + Hanken Grotesk (texto). Paleta monocroma.
 
 ```bash
 npm install
@@ -32,7 +32,7 @@ npm run build && npm start
 
 - **Diseño** (rediseño editorial monocromo): paleta fija `#FFFFFF #111111 #292929 #858585 #E5E5E5 #F7F7F7` en `globals.css` (sin acentos); clases `.t-display`, `.t-label`, `.tag`, `.btn`, `.link`. Header de tres zonas (`Header.tsx`), portada `Hero.tsx`, colección por categorías `Collection.tsx` + `ProductCard.tsx` (nada depende del hover), marca con Image accordion (`Brand.tsx`), contacto como tabla y footer solo con el logo.
 - **Lenis** corre sobre el scroll nativo, por eso convive con `whileInView`/`useScroll` de Framer Motion; se suaviza solo con rueda (no en táctil) y se desactiva con `prefers-reduced-motion`.
-- **Scroll con GSAP** (`GsapScroll.tsx`): `data-parallax="n"` desplaza un elemento ±n % mientras cruza la pantalla y `data-title` destapa los titulares con una máscara. Se desactiva con `prefers-reduced-motion`.
+- **Scroll con GSAP** (`GsapScroll.tsx`), todo por atributos de datos: `data-title` (titulares con máscara), `data-parallax="n"`, `data-drag="desde,hasta"` (arrastre horizontal: titular de la portada en sentidos opuestos y banda `Marquee.tsx`), `data-hscroll` + `[data-track]` + `data-lag` (lookbook fijado cuyas fotos se arrastran a distinta velocidad, `Lookbook.tsx`) y `data-rise` (el logo del footer sube al llegar al final). Se monta al final de `page.tsx` para correr después de hidratar. Con `prefers-reduced-motion` no se registra nada y el lookbook queda como tira deslizable.
 - **WebGL** (`GlImage.tsx`): las fotos de la portada se distorsionan con ondas bajo el cursor. El `<img>` sigue siendo el contenido; el canvas se crea recién al primer hover con puntero fino y se apaga solo.
 - **Menú lateral** (escritorio y móvil, `Header.tsx`): seis franjas negras se extienden desde el borde izquierdo en escalones, de arriba hacia abajo, y al cerrar se recogen en orden inverso, de abajo hacia arriba (Framer Motion). Los enlaces suben con máscara.
 - **Micro-interacciones**: relleno de izquierda a derecha en botones, subrayado que se dibuja, escala al tocar, zoom y fondo en las fichas, «Agregado» con check y rebote del contador del carrito.

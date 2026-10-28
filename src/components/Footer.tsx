@@ -20,6 +20,7 @@ export function Footer() {
             className="block transition-opacity duration-500 ease-[var(--ease-out-strong)] hover:opacity-70 focus-visible:opacity-100"
           >
             <Image
+              data-rise
               src="/brand/logo-light-xl.png"
               alt=""
               unoptimized
@@ -31,6 +32,7 @@ export function Footer() {
           </AnchorLink>
         </Reveal>
       </div>
+      <p className="t-label px-4 pb-4 text-white/60 md:px-8">© ICONIC</p>
     </footer>
   );
 }

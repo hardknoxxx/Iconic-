@@ -10,6 +10,13 @@ import { useAnchorScroll } from "@/lib/useAnchorScroll";
 import { ProductCard } from "./ProductCard";
 import { Reveal } from "./Reveal";
 
+const ENTRIES: { id: CategoryId; product?: string }[] = [
+  { id: "tops", product: "remera-cruz-negra" },
+  { id: "pantalones", product: "jean-baggy-negro" },
+  { id: "noche", product: "tops-encaje-tubo" },
+  { id: "vestidos" },
+];
+
 const GRID = "grid grid-cols-2 gap-x-2 gap-y-8 md:grid-cols-3 md:gap-x-3 md:gap-y-12 lg:grid-cols-4";
 
 /**
@@ -55,25 +62,67 @@ export function Collection() {
               Colección
             </h2>
           </Reveal>
-          <Reveal delay={0.08}>
-            <ul aria-label="Ir a una categoría" className="flex flex-wrap gap-x-5">
-              {categories.filter((c) => c.id !== "vestidos").map((c) => (
-                <li key={c.id}>
+        </div>
+
+        {/* Índice de categorías: cada celda lleva el rótulo subrayado arriba y una prenda recortada, como en Deadly Ponies. */}
+        <ul aria-label="Ir a una categoría" className="mt-8 grid grid-cols-2 gap-2 md:mt-12 md:grid-cols-4 md:gap-3">
+          {ENTRIES.map((entry, i) => {
+            const cat = categories.find((c) => c.id === entry.id)!;
+            const count = products.filter((p) => p.category === entry.id).length;
+            const product = entry.product && products.find((p) => p.id === entry.product);
+            const inner = (
+              <>
+                <span className="t-label link-grow tap relative z-10 self-start">
+                  {cat.label}
+                  {product ? ` (${count})` : ""}
+                </span>
+                {product ? (
+                  <span className="relative mt-3 block aspect-[4/5] flex-1">
+                    <Image
+                      src={product.image.src}
+                      alt=""
+                      fill
+                      sizes="(min-width: 768px) 24vw, 46vw"
+                      className="object-contain p-2 transition-transform duration-500 ease-[var(--ease-out-strong)] group-hover:scale-105"
+                    />
+                  </span>
+                ) : (
+                  <span className="t-caption mt-3 block flex-1 self-end pt-24 text-graphite">
+                    Consultá disponibilidad por WhatsApp
+                  </span>
+                )}
+              </>
+            );
+            const cell = "group tap flex min-h-64 w-full flex-col bg-paper p-3 text-left transition-colors duration-300 hover:bg-line";
+            return (
+              <Reveal as="li" key={entry.id} delay={i * 0.05}>
+                {product ? (
                   <button
                     type="button"
                     onClick={() => {
                       setQuery("");
-                      window.setTimeout(() => scrollTo(`#cat-${c.id}`), 30);
+                      window.setTimeout(() => scrollTo(`#cat-${entry.id}`), 30);
                     }}
-                    className="t-label inline-flex min-h-11 items-center underline-offset-4 hover:underline"
+                    aria-label={`Ir a ${cat.label}`}
+                    className={cell}
                   >
-                    {c.label}
+                    {inner}
                   </button>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </div>
+                ) : (
+                  <a
+                    href={whatsappUrl(categoryMessage(cat.label))}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`Consultar por ${cat.label.toLowerCase()} por WhatsApp (se abre en una pestaña nueva)`}
+                    className={cell}
+                  >
+                    {inner}
+                  </a>
+                )}
+              </Reveal>
+            );
+          })}
+        </ul>
 
         <div id="prendas" className="scroll-mt-[var(--header-h)]">
           {searching ? (
@@ -124,6 +173,13 @@ export function Collection() {
                     sizes="(min-width: 768px) 33vw, 60vw"
                     className="h-auto w-full"
                   />
+                  <button
+                    type="button"
+                    onClick={() => scrollTo("#cat-pantalones")}
+                    className="t-label link-grow tap mt-1 inline-flex min-h-11 items-center"
+                  >
+                    Pantalones
+                  </button>
                 </div>
                 <div data-parallax="10" className="col-span-2 self-end md:col-span-5 md:col-start-7">
                   <Image
@@ -134,6 +190,13 @@ export function Collection() {
                     sizes="(min-width: 768px) 40vw, 40vw"
                     className="h-auto w-full"
                   />
+                  <button
+                    type="button"
+                    onClick={() => scrollTo("#cat-pantalones")}
+                    className="t-label link-grow tap mt-1 inline-flex min-h-11 items-center"
+                  >
+                    Ver jeans
+                  </button>
                 </div>
               </Reveal>
 

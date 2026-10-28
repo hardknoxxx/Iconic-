@@ -184,6 +184,21 @@ export const editorial = {
   },
 };
 
+/**
+ * Lookbook horizontal: solo fotografías reales de la tienda, a distintos tamaños y alturas.
+ * `lag` es cuánto se retrasa o adelanta cada foto respecto del avance del scroll (efecto de capas).
+ */
+export const lookbook = [
+  { src: "/images/products/cadena-cruces.webp", alt: "Remera oversize negra con cruces y cadena en blanco", width: 1500, height: 1500, size: 64, lift: 0, lag: 0 },
+  { src: "/images/products/mangas-largas.webp", alt: "Remeras de manga larga en colores lisos, colgadas en una percha", width: 960, height: 1280, size: 52, lift: 14, lag: 0.12 },
+  { src: "/images/products/bermuda.webp", alt: "Modelo con bermuda de jean con brillos y remera azul oscura", width: 771, height: 1000, size: 60, lift: 4, lag: -0.08 },
+  { src: "/images/products/negro-rosa-espalda.webp", alt: "Detalle del bolsillo trasero de un jean negro con estampa rosa", width: 1024, height: 1280, size: 46, lift: 22, lag: 0.16 },
+  { src: "/images/products/flare-espalda.webp", alt: "Modelo de espaldas con jean flare de lavado claro", width: 543, height: 724, size: 58, lift: 0, lag: -0.1 },
+  { src: "/images/products/baggy-claro.webp", alt: "Modelo con jean baggy de lavado claro y bordado en la pierna", width: 928, height: 811, size: 40, lift: 18, lag: 0.1 },
+  { src: "/images/products/encaje-mangas.webp", alt: "Tops de encaje de manga larga colgados en una percha", width: 960, height: 1280, size: 62, lift: 2, lag: -0.06 },
+  { src: "/images/products/camuflado.webp", alt: "Pantalón camuflado con bordados, colgado", width: 543, height: 724, size: 50, lift: 12, lag: 0.14 },
+];
+
 const priceFormatter = new Intl.NumberFormat("es-AR", {
   style: "currency",
   currency: "ARS",
