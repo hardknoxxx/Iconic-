@@ -34,5 +34,5 @@ npm run build && npm start
 - **Lenis** corre sobre el scroll nativo, por eso convive con `whileInView`/`useScroll` de Framer Motion; se suaviza solo con rueda (no en táctil) y se desactiva con `prefers-reduced-motion`.
 - **Scroll con GSAP** (`GsapScroll.tsx`): `data-parallax="n"` desplaza un elemento ±n % mientras cruza la pantalla y `data-title` destapa los titulares con una máscara. Se desactiva con `prefers-reduced-motion`.
 - **WebGL** (`GlImage.tsx`): las fotos de la portada se distorsionan con ondas bajo el cursor. El `<img>` sigue siendo el contenido; el canvas se crea recién al primer hover con puntero fino y se apaga solo.
-- **Menú móvil**: cinco columnas negras bajan en escalones (Framer Motion) y los enlaces suben con máscara.
+- **Menú lateral** (escritorio y móvil, `Header.tsx`): seis franjas negras se extienden desde el borde izquierdo en escalones, de arriba hacia abajo, y al cerrar se recogen en orden inverso, de abajo hacia arriba (Framer Motion). Los enlaces suben con máscara.
 - **Micro-interacciones**: relleno de izquierda a derecha en botones, subrayado que se dibuja, escala al tocar, zoom y fondo en las fichas, «Agregado» con check y rebote del contador del carrito.

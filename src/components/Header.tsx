@@ -10,11 +10,8 @@ import { useAnchorScroll } from "@/lib/useAnchorScroll";
 import { closeSearch, openCart, openSearch, useShop } from "@/lib/shop-store";
 import { BagIcon } from "./icons";
 
-const STEPS = 5;
+const STEPS = 6;
 const STAIR_EASE = [0.76, 0, 0.24, 1] as const;
-
-/** Enlaces de la barra: «Inicio» es el logo, así que no se repite como texto. */
-const links = nav.filter((item) => item.href !== "#inicio");
 
 /**
  * Barra utilitaria de tres zonas: navegación a la izquierda, logo al centro, buscar y carrito a la derecha.
@@ -76,27 +73,11 @@ export function Header() {
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
-              aria-controls="menu-movil"
-              className={`${control} md:hidden`}
+              aria-controls="menu-lateral"
+              className={control}
             >
               {open ? "Cerrar" : "Menú"}
             </button>
-            <nav aria-label="Principal" className="hidden md:block">
-              <ul className="flex items-center gap-6">
-                {links.map((item) => (
-                  <li key={item.href}>
-                    <a
-                      href={item.href}
-                      onClick={onAnchorClick}
-                      aria-current={active === item.href.slice(1) ? "location" : undefined}
-                      className={control}
-                    >
-                      {item.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </nav>
           </div>
 
           <a href="#inicio" onClick={onAnchorClick} aria-label="ICONIC — ir al inicio" className="block px-2 py-2">
@@ -137,79 +118,94 @@ export function Header() {
       <AnimatePresence>
         {open && (
           <motion.div
-            id="menu-movil"
+            id="menu-lateral"
             initial="out"
             animate="in"
             exit="out"
-            className="on-dark fixed inset-x-0 bottom-0 top-[var(--header-h)] z-40 overflow-hidden md:hidden"
+            className="on-dark fixed inset-x-0 bottom-0 top-[var(--header-h)] z-40"
           >
-            {/* Escalones: cinco columnas negras que bajan una tras otra al abrir y suben en orden inverso al cerrar. */}
-            <div aria-hidden className="absolute inset-0 grid grid-cols-5">
-              {Array.from({ length: STEPS }, (_, i) => (
-                <motion.div
-                  key={i}
-                  variants={{
-                    in: { scaleY: 1, transition: { duration: 0.5, ease: STAIR_EASE, delay: i * 0.06 } },
-                    out: { scaleY: 0, transition: { duration: 0.4, ease: STAIR_EASE, delay: (STEPS - 1 - i) * 0.04 } },
-                  }}
-                  style={{ transformOrigin: "top" }}
-                  className="bg-ink"
-                />
-              ))}
-            </div>
+            {/* En escritorio el resto de la página queda atenuado y un clic ahí cierra el menú. */}
+            <motion.div
+              aria-hidden
+              onClick={() => setOpen(false)}
+              variants={{ in: { opacity: 1 }, out: { opacity: 0 } }}
+              transition={{ duration: 0.3 }}
+              className="absolute inset-0 hidden bg-ink/30 md:block"
+            />
 
-            <nav aria-label="Menú móvil" className="relative flex min-h-full flex-col justify-between px-4 pb-8 pt-4 text-white">
-              <ul className="border-t border-white/40">
-                {nav.map((item, i) => (
-                  <li key={item.href} className="overflow-hidden border-b border-white/15">
-                    <motion.a
-                      href={item.href}
-                      onClick={(e) => {
-                        e.preventDefault();
-                        goTo(item.href);
-                      }}
-                      variants={{
-                        in: { y: 0, transition: { duration: 0.55, ease: STAIR_EASE, delay: 0.3 + i * 0.07 } },
-                        out: { y: "105%", transition: { duration: 0.25, ease: STAIR_EASE } },
-                      }}
-                      className="flex items-baseline gap-4 py-4"
-                    >
-                      <span className="t-label tag w-14 shrink-0 text-white/50">{String(i + 1).padStart(2, "0")}</span>
-                      <span className="t-display text-5xl">{item.label}</span>
-                    </motion.a>
-                  </li>
+            <div className="relative h-full w-full overflow-hidden md:w-[30rem]">
+              {/* Escalones: seis franjas negras que se extienden desde el borde izquierdo, de arriba hacia abajo.
+                  Al cerrar se recogen hacia ese mismo borde en orden inverso, de abajo hacia arriba. */}
+              <div aria-hidden className="absolute inset-0 flex flex-col">
+                {Array.from({ length: STEPS }, (_, i) => (
+                  <motion.div
+                    key={i}
+                    variants={{
+                      in: { scaleX: 1, transition: { duration: 0.5, ease: STAIR_EASE, delay: i * 0.06 } },
+                      out: { scaleX: 0, transition: { duration: 0.4, ease: STAIR_EASE, delay: (STEPS - 1 - i) * 0.05 } },
+                    }}
+                    style={{ transformOrigin: "left" }}
+                    className="flex-1 bg-ink"
+                  />
                 ))}
-              </ul>
-              <motion.ul
-                variants={{
-                  in: { opacity: 1, transition: { delay: 0.7, duration: 0.3 } },
-                  out: { opacity: 0, transition: { duration: 0.15 } },
-                }}
-                className="mt-10 flex flex-col gap-1"
-              >
-                <li>
-                  <a
-                    href={whatsappUrl(generalMessage)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="t-label inline-flex min-h-11 items-center underline underline-offset-4"
-                  >
-                    WhatsApp<span className="sr-only"> (se abre en una pestaña nueva)</span>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    href={social.instagram.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="t-label inline-flex min-h-11 items-center underline underline-offset-4"
-                  >
-                    Instagram {social.instagram.handle}
-                    <span className="sr-only"> (se abre en una pestaña nueva)</span>
-                  </a>
-                </li>
-              </motion.ul>
-            </nav>
+              </div>
+
+              <nav aria-label="Menú" className="relative flex h-full flex-col justify-between overflow-y-auto px-4 pb-8 pt-4 text-white md:px-8">
+                <ul className="border-t border-white/40">
+                  {nav.map((item, i) => (
+                    <li key={item.href} className="overflow-hidden border-b border-white/15">
+                      <motion.a
+                        href={item.href}
+                        aria-current={active === item.href.slice(1) ? "location" : undefined}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          goTo(item.href);
+                        }}
+                        variants={{
+                          in: { y: 0, transition: { duration: 0.55, ease: STAIR_EASE, delay: 0.3 + i * 0.07 } },
+                          out: { y: "105%", transition: { duration: 0.25, ease: STAIR_EASE } },
+                        }}
+                        className="group flex items-baseline gap-4 py-4"
+                      >
+                        <span className="t-label tag w-14 shrink-0 text-white/50">{String(i + 1).padStart(2, "0")}</span>
+                        <span className="t-display text-5xl transition-transform duration-300 ease-[var(--ease-out-strong)] group-hover:translate-x-2 group-aria-[current=location]:translate-x-2">
+                          {item.label}
+                        </span>
+                      </motion.a>
+                    </li>
+                  ))}
+                </ul>
+                <motion.ul
+                  variants={{
+                    in: { opacity: 1, transition: { delay: 0.7, duration: 0.3 } },
+                    out: { opacity: 0, transition: { duration: 0.15 } },
+                  }}
+                  className="mt-10 flex flex-col gap-1"
+                >
+                  <li>
+                    <a
+                      href={whatsappUrl(generalMessage)}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="t-label inline-flex min-h-11 items-center underline underline-offset-4 hover:no-underline"
+                    >
+                      WhatsApp<span className="sr-only"> (se abre en una pestaña nueva)</span>
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href={social.instagram.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="t-label inline-flex min-h-11 items-center underline underline-offset-4 hover:no-underline"
+                    >
+                      Instagram {social.instagram.handle}
+                      <span className="sr-only"> (se abre en una pestaña nueva)</span>
+                    </a>
+                  </li>
+                </motion.ul>
+              </nav>
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
