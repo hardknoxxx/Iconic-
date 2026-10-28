@@ -3,6 +3,7 @@
 import { MotionConfig, useReducedMotion } from "framer-motion";
 import { ReactLenis } from "lenis/react";
 import type { ReactNode } from "react";
+import { GsapScroll } from "./GsapScroll";
 import { CartDrawer } from "./CartDrawer";
 import { SearchPanel } from "./SearchPanel";
 
@@ -20,6 +21,7 @@ export function Providers({ children }: { children: ReactNode }) {
         root
         options={{ autoRaf: true, duration: 1.1, smoothWheel: !reduce, anchors: false }}
       >
+        <GsapScroll />
         {children}
         <SearchPanel />
         <CartDrawer />

@@ -42,3 +42,7 @@ next-env.d.ts
 
 # Impeccable: estado temporal del servidor en vivo (contiene un token)
 .impeccable/live/
+
+# Skills de agentes instaladas en la sesión
+.agents/
+skills-lock.json

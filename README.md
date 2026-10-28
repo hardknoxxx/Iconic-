@@ -1,7 +1,7 @@
 # ICONIC — Landing page
 
 Landing de ICONIC, tienda de ropa urbana unisex en Puerto Iguazú (Misiones, Argentina).
-Next.js (App Router) · React · TypeScript · Tailwind CSS v4 · Framer Motion · Lenis. Tipografías: Barlow Condensed (titulares) + Hanken Grotesk (interfaz). Paleta monocroma.
+Next.js (App Router) · React · TypeScript · Tailwind CSS v4 · GSAP (ScrollTrigger) · Framer Motion · Lenis · WebGL propio. Tipografías: Barlow Condensed (titulares), Instrument Serif (textos de apertura) + Hanken Grotesk (interfaz). Paleta monocroma.
 
 ```bash
 npm install
@@ -32,3 +32,7 @@ npm run build && npm start
 
 - **Diseño** (rediseño editorial monocromo): paleta fija `#FFFFFF #111111 #292929 #858585 #E5E5E5 #F7F7F7` en `globals.css` (sin acentos); clases `.t-display`, `.t-label`, `.tag`, `.btn`, `.link`. Header de tres zonas (`Header.tsx`), portada `Hero.tsx`, colección por categorías `Collection.tsx` + `ProductCard.tsx` (nada depende del hover), marca con Image accordion (`Brand.tsx`), contacto como tabla y footer solo con el logo.
 - **Lenis** corre sobre el scroll nativo, por eso convive con `whileInView`/`useScroll` de Framer Motion; se suaviza solo con rueda (no en táctil) y se desactiva con `prefers-reduced-motion`.
+- **Scroll con GSAP** (`GsapScroll.tsx`): `data-parallax="n"` desplaza un elemento ±n % mientras cruza la pantalla y `data-title` destapa los titulares con una máscara. Se desactiva con `prefers-reduced-motion`.
+- **WebGL** (`GlImage.tsx`): las fotos de la portada se distorsionan con ondas bajo el cursor. El `<img>` sigue siendo el contenido; el canvas se crea recién al primer hover con puntero fino y se apaga solo.
+- **Menú móvil**: cinco columnas negras bajan en escalones (Framer Motion) y los enlaces suben con máscara.
+- **Micro-interacciones**: relleno de izquierda a derecha en botones, subrayado que se dibuja, escala al tocar, zoom y fondo en las fichas, «Agregado» con check y rebote del contador del carrito.

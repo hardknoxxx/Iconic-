@@ -29,7 +29,7 @@ export function Collection() {
     return (
       <div key={id} id={`cat-${id}`} className="scroll-mt-[var(--header-h)] pt-12 md:pt-20">
         <Reveal className="flex items-end justify-between gap-4 border-b border-ink pb-3">
-          <h3 className="t-display text-5xl md:text-7xl">
+          <h3 data-title className="t-display text-5xl md:text-7xl">
             <span className="t-label tag mr-3 align-top text-mid">{String(n).padStart(2, "0")}</span>
             {cat.label}
           </h3>
@@ -51,7 +51,7 @@ export function Collection() {
       <div className="mx-auto max-w-[1600px] px-4 md:px-8">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <Reveal>
-            <h2 id="coleccion-titulo" className="t-display text-[clamp(3.5rem,11vw,10rem)]">
+            <h2 id="coleccion-titulo" data-title className="t-display text-[clamp(3.5rem,11vw,10rem)]">
               Colección
             </h2>
           </Reveal>
@@ -115,7 +115,7 @@ export function Collection() {
               {block("pantalones", 2)}
 
               <Reveal className="mt-12 grid grid-cols-5 gap-2 md:mt-20 md:grid-cols-12 md:gap-3">
-                <div className="col-span-3 md:col-span-4 md:col-start-2">
+                <div data-parallax="6" className="col-span-3 md:col-span-4 md:col-start-2">
                   <Image
                     src={editorial.spreadA.src}
                     alt={editorial.spreadA.alt}
@@ -125,7 +125,7 @@ export function Collection() {
                     className="h-auto w-full"
                   />
                 </div>
-                <div className="col-span-2 self-end md:col-span-5 md:col-start-7">
+                <div data-parallax="10" className="col-span-2 self-end md:col-span-5 md:col-start-7">
                   <Image
                     src={editorial.spreadB.src}
                     alt={editorial.spreadB.alt}

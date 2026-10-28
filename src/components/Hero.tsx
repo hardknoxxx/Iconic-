@@ -1,7 +1,7 @@
-import Image from "next/image";
 import { editorial } from "@/data/products";
 import { site } from "@/data/site";
 import { AnchorLink } from "./AnchorLink";
+import { GlImage } from "./GlImage";
 
 /**
  * Portada editorial: titular condensado a todo el ancho y dos fotografías reales de prendas
@@ -26,7 +26,7 @@ export function Hero() {
 
         <div className="fade-up mt-8 grid gap-x-4 gap-y-6 [animation-delay:350ms] md:mt-12 md:grid-cols-12">
           <div className="flex flex-col justify-between gap-6 md:col-span-3 md:row-span-1">
-            <p className="max-w-[24ch] text-sm leading-relaxed text-graphite">
+            <p className="t-lead max-w-[17ch]">
               Tops, pantalones, vestidos y ropa de noche para adultos. En el local o por WhatsApp.
             </p>
             <AnchorLink href="#coleccion" className="btn w-fit">
@@ -34,8 +34,8 @@ export function Hero() {
             </AnchorLink>
           </div>
 
-          <div className="md:col-span-5 md:col-start-5">
-            <Image
+          <div data-parallax="3" className="md:col-span-5 md:col-start-5">
+            <GlImage
               src={editorial.heroMain.src}
               alt={editorial.heroMain.alt}
               width={editorial.heroMain.width}
@@ -46,8 +46,8 @@ export function Hero() {
             />
           </div>
 
-          <div className="md:col-span-3 md:col-start-10 md:mt-24">
-            <Image
+          <div data-parallax="8" className="md:col-span-3 md:col-start-10 md:mt-24">
+            <GlImage
               src={editorial.heroSecond.src}
               alt={editorial.heroSecond.alt}
               width={editorial.heroSecond.width}

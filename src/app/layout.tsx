@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { Barlow_Condensed, Hanken_Grotesk } from "next/font/google";
+import { Barlow_Condensed, Hanken_Grotesk, Instrument_Serif } from "next/font/google";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import { site } from "@/data/site";
@@ -14,6 +14,9 @@ const display = Barlow_Condensed({
   subsets: ["latin"],
   weight: ["600", "800"],
 });
+
+/* Voz editorial para los textos de apertura: serif de alto contraste, a tamaño grande. */
+const serif = Instrument_Serif({ variable: "--font-serif", subsets: ["latin"], weight: "400", style: ["normal", "italic"] });
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -41,7 +44,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es-AR" className={`${body.variable} ${display.variable}`} suppressHydrationWarning>
+    <html lang="es-AR" className={`${body.variable} ${display.variable} ${serif.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>

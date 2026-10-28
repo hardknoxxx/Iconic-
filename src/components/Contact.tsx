@@ -11,7 +11,7 @@ export function Contact() {
     <section id="contacto" data-nav="contacto" aria-labelledby="contacto-titulo" className="py-16 md:py-24">
       <div className="mx-auto max-w-[1600px] px-4 md:px-8">
         <Reveal>
-          <h2 id="contacto-titulo" className="t-display text-[clamp(3.5rem,11vw,10rem)]">
+          <h2 id="contacto-titulo" data-title className="t-display text-[clamp(3.5rem,11vw,10rem)]">
             Contacto
           </h2>
         </Reveal>

@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { categories, formatPrice, type Product } from "@/data/products";
 import { addToCart, useShop } from "@/lib/shop-store";
+import { BagPlusIcon, CheckIcon } from "./icons";
 
 /**
  * Ficha de prenda: imagen sobre fondo gris claro y debajo, en tipografía chica,
@@ -14,10 +16,20 @@ export function ProductCard({ product, priority }: { product: Product; priority?
   const qty = lines.find((l) => l.id === product.id)?.qty ?? 0;
   const category = categories.find((c) => c.id === product.category)?.label;
   const contain = product.image.fit === "contain";
+  // Confirmación breve junto al botón: el carrito del header está lejos de la prenda.
+  const [added, setAdded] = useState(false);
+  const timer = useRef<number | undefined>(undefined);
+  useEffect(() => () => window.clearTimeout(timer.current), []);
+  const add = () => {
+    addToCart(product.id);
+    setAdded(true);
+    window.clearTimeout(timer.current);
+    timer.current = window.setTimeout(() => setAdded(false), 1400);
+  };
 
   return (
-    <article className="group">
-      <div className="relative aspect-[4/5] overflow-hidden bg-paper">
+    <article className="card">
+      <div className="card-media relative aspect-[4/5] overflow-hidden bg-paper">
         <Image
           src={product.image.src}
           alt={product.image.alt}
@@ -25,7 +37,7 @@ export function ProductCard({ product, priority }: { product: Product; priority?
           priority={priority}
           sizes="(min-width: 1024px) 25vw, (min-width: 768px) 33vw, 50vw"
           style={{ objectPosition: product.image.position }}
-          className={`transition-transform duration-500 ease-[var(--ease-out-strong)] group-hover:scale-[1.03] motion-reduce:transition-none ${
+          className={`${
             contain ? "object-contain p-3 md:p-5" : "object-cover"
           }`}
         />
@@ -40,13 +52,14 @@ export function ProductCard({ product, priority }: { product: Product; priority?
       </div>
       <button
         type="button"
-        onClick={() => addToCart(product.id)}
+        onClick={add}
         aria-label={
           qty > 0 ? `${product.name}: ${qty} en el carrito. Agregar otra` : `Agregar ${product.name} al carrito`
         }
-        className="t-label mt-1 inline-flex min-h-11 items-center underline underline-offset-4 hover:no-underline"
+        className="card-add tap t-label link-grow mt-1 inline-flex min-h-11 items-center gap-2 pr-1"
       >
-        {qty > 0 ? `En carrito (${qty}) +` : "Agregar +"}
+        {added ? <CheckIcon width={16} height={16} className="pop" /> : <BagPlusIcon width={16} height={16} />}
+        {added ? "Agregado" : qty > 0 ? `Agregar otra (${qty})` : "Agregar al carrito"}
       </button>
     </article>
   );

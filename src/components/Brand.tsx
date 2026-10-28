@@ -4,9 +4,9 @@ import { ImageAccordion } from "./ImageAccordion";
 import { Reveal } from "./Reveal";
 
 const values = [
-  { title: "Versatilidad", text: "Prendas para combinar, cambiar de plan y repetir con otro look." },
-  { title: "Calidad", text: "Una selección pensada para que cada prenda se sienta bien y dure." },
-  { title: "Variedad", text: "Tops, pantalones, vestidos y ropa de noche, unisex, en un solo lugar." },
+  { title: "Versatilidad", text: "Prendas para combinar y repetir con otro look." },
+  { title: "Calidad", text: "Prendas elegidas para que se sientan bien y duren." },
+  { title: "Variedad", text: "Tops, pantalones, vestidos y ropa de noche, todo unisex." },
 ];
 
 export function Brand() {
@@ -21,14 +21,13 @@ export function Brand() {
         <div className="lg:col-span-6">
           <Reveal>
             <p className="t-label tag text-mid">La marca</p>
-            <h2 id="marca-titulo" className="t-display mt-3 text-[clamp(3.5rem,9vw,8.5rem)] leading-[1.02]">
+            <h2 id="marca-titulo" data-title className="t-display mt-3 text-[clamp(3.5rem,9vw,8.5rem)] leading-[1.05]">
               Para cada
               <br />
               ocasión
             </h2>
-            <p className="mt-8 max-w-[44ch] text-lg leading-relaxed text-white/90">
-              ICONIC es ropa urbana unisex para adultos, con una experiencia de compra simple y cercana: pasás por el
-              local o nos escribís por WhatsApp.
+            <p className="t-lead mt-8 max-w-[26ch] text-white">
+              ICONIC es ropa urbana unisex para adultos. Podés pasar por el local o escribirnos por WhatsApp.
             </p>
           </Reveal>
 

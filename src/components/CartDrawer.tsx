@@ -113,7 +113,7 @@ export function CartDrawer() {
                 <div className="flex flex-1 flex-col justify-center px-4 pb-16 md:px-6">
                   <p className="text-lg leading-snug">Todavía no agregaste prendas.</p>
                   <p className="mt-2 text-sm leading-relaxed text-graphite">
-                    Tocá «Agregar +» en cualquier prenda y armá tu consulta: te llevamos a WhatsApp con la lista lista para enviar.
+                    Agregá prendas desde la colección y te llevamos a WhatsApp con la lista lista para enviar.
                   </p>
                   <button type="button" onClick={closeCart} className="btn btn-line mt-6 w-fit">
                     Seguir mirando
@@ -189,7 +189,7 @@ export function CartDrawer() {
                       <span className="sr-only"> (se abre en una pestaña nueva)</span>
                     </a>
                     <p className="text-xs leading-snug text-graphite">
-                      Se abre WhatsApp con tu lista ya escrita. La compra se cierra por chat con la tienda; acá no se paga.
+                      Se abre WhatsApp con tu lista escrita. La compra se cierra por chat con la tienda; acá no se paga.
                     </p>
                     <button
                       type="button"
