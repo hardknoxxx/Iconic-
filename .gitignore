@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# Impeccable: estado temporal del servidor en vivo (contiene un token)
+.impeccable/live/
