@@ -14,39 +14,43 @@ export function Brand() {
     <section
       id="marca"
       data-nav="marca"
-      data-dark
       aria-labelledby="marca-titulo"
-      className="on-dark bg-ink py-20 text-white md:py-32"
+      className="on-dark bg-ink py-16 text-white md:py-24"
     >
-      <div className="mx-auto grid max-w-[1480px] gap-16 px-5 md:px-10 lg:grid-cols-12 lg:items-center">
+      <div className="mx-auto grid max-w-[1600px] gap-12 px-4 md:px-8 lg:grid-cols-12 lg:gap-8">
         <div className="lg:col-span-6">
           <Reveal>
-            <h2 id="marca-titulo" className="display h2-display">
+            <p className="t-label tag text-mid">La marca</p>
+            <h2 id="marca-titulo" className="t-display mt-3 text-[clamp(3.5rem,9vw,8.5rem)] leading-[1.02]">
               Para cada
               <br />
               ocasión
             </h2>
-          </Reveal>
-          <Reveal delay={0.1}>
-            <p className="mt-8 max-w-lg text-xl leading-relaxed text-white/90 md:text-2xl">
+            <p className="mt-8 max-w-[44ch] text-lg leading-relaxed text-white/90">
               ICONIC es ropa urbana unisex para adultos, con una experiencia de compra simple y cercana: pasás por el
               local o nos escribís por WhatsApp.
             </p>
           </Reveal>
 
-          <ul className="mt-12 space-y-2">
+          <ul className="mt-12 border-t border-white/30">
             {values.map((v, i) => (
-              <Reveal as="li" key={v.title} delay={0.05 * i} className="grid gap-1 bg-white/5 p-5 sm:grid-cols-[11rem_1fr] sm:gap-6">
-                <h3 className="display text-xl">{v.title}</h3>
-                <p className="text-white/80">{v.text}</p>
+              <Reveal
+                as="li"
+                key={v.title}
+                delay={0.05 * i}
+                className="grid gap-1 border-b border-white/30 py-4 sm:grid-cols-[3rem_11rem_1fr] sm:gap-4"
+              >
+                <span className="t-label tag text-mid">{String(i + 1).padStart(2, "0")}</span>
+                <h3 className="t-title text-2xl">{v.title}</h3>
+                <p className="text-sm leading-relaxed text-white/80">{v.text}</p>
               </Reveal>
             ))}
           </ul>
         </div>
 
-        <div className="mx-auto w-full max-w-[34rem] lg:col-span-6 lg:max-w-none lg:pl-10">
+        <div className="w-full lg:col-span-6 lg:pl-8">
           <Reveal delay={0.1}>
-            <ImageAccordion width="100%" height="clamp(22rem, 68svh, 36rem)" bounce={0} />
+            <ImageAccordion width="100%" height="clamp(22rem, 68svh, 38rem)" bounce={0} gap={2} />
           </Reveal>
         </div>
       </div>

@@ -2,41 +2,38 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { Menu, MessageCircle, Search, ShoppingBag, X } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useLenis } from "lenis/react";
 import { nav, social } from "@/data/site";
 import { generalMessage, whatsappUrl } from "@/lib/whatsapp";
 import { useAnchorScroll } from "@/lib/useAnchorScroll";
 import { closeSearch, openCart, openSearch, useShop } from "@/lib/shop-store";
-import { InstagramIcon } from "./icons";
 
+/** Enlaces de la barra: «Inicio» es el logo, así que no se repite como texto. */
+const links = nav.filter((item) => item.href !== "#inicio");
+
+/**
+ * Barra utilitaria de tres zonas: navegación a la izquierda, logo al centro, buscar y carrito a la derecha.
+ * Texto en mayúsculas chicas, sin iconos decorativos ni fondos redondeados.
+ */
 export function Header() {
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [active, setActive] = useState("inicio");
-  const [dark, setDark] = useState(false);
   const { lines, searchOpen } = useShop();
   const cartCount = lines.reduce((n, l) => n + l.qty, 0);
   const lenis = useLenis();
   const { scrollTo, onAnchorClick } = useAnchorScroll();
 
   useEffect(() => {
-    // Qué sección queda justo bajo el header: marca el enlace activo y pasa el header a oscuro sobre secciones negras.
+    // Qué sección queda justo bajo el header: marca el enlace activo.
     const onScroll = () => {
-      setScrolled(window.scrollY > 24);
-      const y = parseFloat(getComputedStyle(document.documentElement).fontSize) * 4.25 + 1;
+      const y = parseFloat(getComputedStyle(document.documentElement).fontSize) * 3.5 + 1;
       let current = "inicio";
-      let isDark = false;
       document.querySelectorAll<HTMLElement>("[data-nav]").forEach((el) => {
         const r = el.getBoundingClientRect();
-        if (r.top <= y && r.bottom > y) {
-          current = el.dataset.nav || current;
-          isDark = el.hasAttribute("data-dark");
-        }
+        if (r.top <= y && r.bottom > y) current = el.dataset.nav || current;
       });
       setActive(current);
-      setDark(isDark);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -61,185 +58,120 @@ export function Header() {
     // Reactivamos el scroll antes de movernos: Lenis ignora scrollTo mientras está detenido.
     lenis?.start();
     setOpen(false);
-    // Damos un instante para que el efecto del menú libere el bloqueo de scroll.
     window.setTimeout(() => scrollTo(href), 60);
   };
 
+  const control = "t-label inline-flex min-h-11 items-center px-1 max-md:px-0.5 hover:underline hover:underline-offset-4";
+
   return (
     <>
-      <header
-        className={`fixed inset-x-0 top-0 z-50 transition-[background-color] duration-200 ease-[var(--ease-out-strong)] ${
-          open
-            ? "bg-white text-ink"
-            : scrolled
-              ? dark
-                ? "header-glass-dark text-white"
-                : "header-glass text-ink"
-              : "bg-transparent text-ink"
-        }`}
-      >
-        <div className="mx-auto flex h-[var(--header-h)] max-w-[1480px] items-center justify-between px-5 md:px-10">
-          <a
-            href="#inicio"
-            onClick={onAnchorClick}
-            aria-label="ICONIC — ir al inicio"
-            className="press -ml-1 block p-1"
-          >
-            <Image
-              src={dark && scrolled && !open ? "/brand/logo-light.png" : "/brand/logo-dark.png"}
-              alt="ICONIC"
-              width={900}
-              height={363}
-              priority
-              className="h-8 w-auto md:h-9"
-            />
-          </a>
-
-          <nav aria-label="Principal" className="hidden md:block">
-            <ul className="flex items-center gap-9 text-sm font-medium">
-              {nav.map((item) => (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    onClick={onAnchorClick}
-                    aria-current={active === item.href.slice(1) ? "location" : undefined}
-                    className="group relative inline-flex min-h-11 items-center"
-                  >
-                    {item.label}
-                    <span
-                      className={`absolute inset-x-0 bottom-2 h-0.5 origin-left bg-current transition-transform duration-200 ease-[var(--ease-out-strong)] ${
-                        active === item.href.slice(1) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                      }`}
-                    />
-                  </a>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div className="flex items-center gap-2">
-            <a
-              href={social.instagram.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label="Instagram de ICONIC (se abre en una pestaña nueva)"
-              className="press hidden size-11 items-center justify-center rounded-full hover:bg-current/10 sm:inline-flex"
-            >
-              <InstagramIcon />
-            </a>
-            <button
-              type="button"
-              onClick={() => (searchOpen ? closeSearch() : openSearch())}
-              aria-expanded={searchOpen}
-              aria-controls="buscar"
-              aria-label="Buscar prenda"
-              className="press inline-flex size-11 items-center justify-center rounded-full hover:bg-current/10"
-            >
-              <Search size={20} aria-hidden />
-            </button>
-            <button
-              type="button"
-              onClick={openCart}
-              aria-label={cartCount > 0 ? `Abrir carrito, ${cartCount} ${cartCount === 1 ? "prenda" : "prendas"}` : "Abrir carrito"}
-              className="press relative inline-flex size-11 items-center justify-center rounded-full hover:bg-current/10"
-            >
-              <ShoppingBag size={20} aria-hidden />
-              {cartCount > 0 && (
-                <span
-                  aria-hidden
-                  className="absolute right-0 top-0 inline-flex min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[0.6875rem] font-semibold leading-5 text-ink"
-                >
-                  {cartCount}
-                </span>
-              )}
-            </button>
-            <a
-              href={whatsappUrl(generalMessage)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={`press hidden h-11 items-center gap-2 rounded-full px-5 text-sm font-medium sm:inline-flex ${
-                dark && scrolled && !open ? "bg-white text-ink hover:bg-line" : "bg-ink text-white hover:bg-graphite"
-              }`}
-            >
-              <MessageCircle size={18} aria-hidden />
-              WhatsApp
-            </a>
+      <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-white text-ink">
+        <div className="mx-auto grid h-[var(--header-h)] max-w-[1600px] grid-cols-[1fr_auto_1fr] items-center px-4 md:px-8">
+          <div className="flex items-center">
             <button
               type="button"
               onClick={() => setOpen((v) => !v)}
               aria-expanded={open}
               aria-controls="menu-movil"
-              aria-label={open ? "Cerrar menú" : "Abrir menú"}
-              className="press -mr-2 inline-flex size-11 items-center justify-center rounded-full md:hidden"
+              className={`${control} md:hidden`}
             >
-              {open ? <X size={24} /> : <Menu size={24} />}
+              {open ? "Cerrar" : "Menú"}
+            </button>
+            <nav aria-label="Principal" className="hidden md:block">
+              <ul className="flex items-center gap-6">
+                {links.map((item) => (
+                  <li key={item.href}>
+                    <a
+                      href={item.href}
+                      onClick={onAnchorClick}
+                      aria-current={active === item.href.slice(1) ? "location" : undefined}
+                      className={`${control} aria-[current=location]:underline aria-[current=location]:underline-offset-4`}
+                    >
+                      {item.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          </div>
+
+          <a href="#inicio" onClick={onAnchorClick} aria-label="ICONIC — ir al inicio" className="block px-2 py-2">
+            <Image src="/brand/logo-dark.png" alt="ICONIC" width={900} height={363} priority className="h-6 w-auto md:h-8" />
+          </a>
+
+          <div className="flex items-center justify-end gap-0 md:gap-3">
+            <button
+              type="button"
+              onClick={() => (searchOpen ? closeSearch() : openSearch())}
+              aria-expanded={searchOpen}
+              aria-controls="buscar"
+              className={control}
+            >
+              Buscar
+            </button>
+            <button
+              type="button"
+              onClick={openCart}
+              aria-label={cartCount > 0 ? `Abrir carrito, ${cartCount} ${cartCount === 1 ? "prenda" : "prendas"}` : "Abrir carrito"}
+              className={control}
+            >
+              Carrito<span aria-hidden className="ml-1">({cartCount})</span>
             </button>
           </div>
         </div>
       </header>
+
       <AnimatePresence>
         {open && (
           <motion.div
             id="menu-movil"
-            /* Nace del botón de menú (arriba a la derecha) y vuelve por el mismo camino;
-               se "materializa" con blur + escala, no con un simple fundido. */
-            initial={{ opacity: 0, scale: 0.97, filter: "blur(8px)" }}
-            animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-            exit={{ opacity: 0, scale: 0.97, filter: "blur(8px)" }}
-            transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
-            style={{ transformOrigin: "100% 0%" }}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.18 }}
             className="fixed inset-x-0 bottom-0 top-[var(--header-h)] z-40 overflow-y-auto bg-white md:hidden"
           >
-            <nav
-              aria-label="Menú móvil"
-              className="flex min-h-full flex-col justify-between px-5 pb-8 pt-6"
-            >
-              <ul>
+            <nav aria-label="Menú móvil" className="flex min-h-full flex-col justify-between px-4 pb-8 pt-4">
+              <ul className="border-t border-ink">
                 {nav.map((item, i) => (
-                  <motion.li
-                    key={item.href}
-                    initial={{ opacity: 0, y: 14 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{
-                      duration: 0.4,
-                      ease: [0.23, 1, 0.32, 1],
-                      delay: 0.04 * i,
-                    }}
-                    className=""
-                  >
+                  <li key={item.href} className="border-b border-line">
                     <a
                       href={item.href}
                       onClick={(e) => {
                         e.preventDefault();
                         goTo(item.href);
                       }}
-                      className="display block py-5 text-4xl"
+                      className="flex items-baseline gap-4 py-4"
                     >
-                      {item.label}
+                      <span className="t-label tag w-14 shrink-0 text-mid">{String(i + 1).padStart(2, "0")}</span>
+                      <span className="t-display text-5xl">{item.label}</span>
                     </a>
-                  </motion.li>
+                  </li>
                 ))}
               </ul>
-              <div className="mt-10 flex flex-col gap-3">
-                <a
-                  href={whatsappUrl(generalMessage)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="press inline-flex h-14 items-center justify-center gap-2 rounded-full bg-ink text-base font-medium text-white"
-                >
-                  <MessageCircle size={20} aria-hidden />
-                  Escribinos por WhatsApp
-                </a>
-                <a
-                  href={social.instagram.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="press inline-flex h-14 items-center justify-center gap-2 rounded-full bg-paper text-base font-medium"
-                >
-                  <InstagramIcon />
-                  {social.instagram.handle}
-                </a>
-              </div>
+              <ul className="mt-10 flex flex-col gap-1">
+                <li>
+                  <a
+                    href={whatsappUrl(generalMessage)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="t-label inline-flex min-h-11 items-center underline underline-offset-4"
+                  >
+                    WhatsApp<span className="sr-only"> (se abre en una pestaña nueva)</span>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    href={social.instagram.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="t-label inline-flex min-h-11 items-center underline underline-offset-4"
+                  >
+                    Instagram {social.instagram.handle}
+                    <span className="sr-only"> (se abre en una pestaña nueva)</span>
+                  </a>
+                </li>
+              </ul>
             </nav>
           </motion.div>
         )}

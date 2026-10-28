@@ -1,6 +1,6 @@
 import { Header } from "@/components/Header";
-import { HeroScene } from "@/components/HeroScene";
-import { Catalog } from "@/components/Catalog";
+import { Hero } from "@/components/Hero";
+import { Collection } from "@/components/Collection";
 import { Brand } from "@/components/Brand";
 import { Contact } from "@/components/Contact";
 import { Footer } from "@/components/Footer";
@@ -10,8 +10,8 @@ export default function Home() {
     <>
       <Header />
       <main>
-        <HeroScene />
-        <Catalog />
+        <Hero />
+        <Collection />
         <Brand />
         <Contact />
       </main>

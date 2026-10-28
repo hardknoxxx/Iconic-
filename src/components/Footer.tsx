@@ -11,8 +11,8 @@ import { Reveal } from "./Reveal";
  */
 export function Footer() {
   return (
-    <footer data-nav="" data-dark className="on-dark bg-ink">
-      <div className="mx-auto flex min-h-[70svh] items-center justify-center px-5 py-24 md:min-h-[80svh] md:py-40">
+    <footer data-nav="" className="on-dark border-t border-white/20 bg-ink">
+      <div className="mx-auto flex min-h-[60svh] items-center justify-center px-4 py-20 md:min-h-[70svh] md:py-32">
         <Reveal className="reveal-slow">
           <AnchorLink
             href="#inicio"

@@ -1,7 +1,6 @@
 "use client";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Search, X } from "lucide-react";
 import { useEffect, useRef } from "react";
 import { products } from "@/data/products";
 import { closeSearch, setQuery, useShop } from "@/lib/shop-store";
@@ -32,7 +31,7 @@ export function SearchPanel() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: -12 }}
           transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
-          className="fixed inset-x-0 top-[var(--header-h)] z-40 bg-white px-5 pb-5 pt-3 md:px-10"
+          className="on-dark fixed inset-x-0 top-[var(--header-h)] z-40 border-b border-white/30 bg-ink px-4 pb-4 pt-2 text-white md:px-8"
         >
           <form
             onSubmit={(e) => {
@@ -40,24 +39,23 @@ export function SearchPanel() {
               scrollTo("#prendas");
               if (window.matchMedia("(max-width: 767px)").matches) closeSearch();
             }}
-            className="mx-auto flex max-w-[1480px] items-center gap-3"
+            className="mx-auto flex max-w-[1600px] items-center gap-4"
           >
             <label htmlFor="buscar" className="sr-only">
               Buscar prenda
             </label>
-            <Search size={20} aria-hidden className="shrink-0 text-graphite" />
             <input
               id="buscar"
               ref={input}
               type="search"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
-              placeholder="Buscar: jean, remera, encaje…"
+              placeholder="BUSCAR: JEAN, REMERA, ENCAJE…"
               autoComplete="off"
               enterKeyHint="search"
-              className="h-12 min-w-0 flex-1 bg-transparent text-lg outline-none placeholder:text-graphite"
+              className="t-title h-14 min-w-0 flex-1 bg-transparent text-3xl outline-none focus-visible:outline-none placeholder:text-white/40 md:text-5xl"
             />
-            <span aria-live="polite" className="hidden text-sm text-graphite sm:inline">
+            <span aria-live="polite" className="t-label hidden text-white/70 sm:inline">
               {query.trim() ? `${found} ${found === 1 ? "resultado" : "resultados"}` : ""}
             </span>
             <button
@@ -66,10 +64,9 @@ export function SearchPanel() {
                 setQuery("");
                 closeSearch();
               }}
-              aria-label="Cerrar buscador"
-              className="press inline-flex size-11 shrink-0 items-center justify-center rounded-full hover:bg-paper"
+              className="t-label inline-flex min-h-11 shrink-0 items-center underline underline-offset-4 hover:no-underline"
             >
-              <X size={20} aria-hidden />
+              Cerrar<span className="sr-only"> buscador</span>
             </button>
           </form>
         </motion.div>

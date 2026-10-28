@@ -1,25 +1,22 @@
 @import "tailwindcss";
 
 @theme inline {
+  /* Paleta estrictamente monocroma. Sin colores de acento. */
   --color-white: #ffffff;
   --color-ink: #111111;
   --color-graphite: #292929;
   --color-mid: #858585;
   --color-line: #e5e5e5;
   --color-paper: #f7f7f7;
-  /* Único color de acento: la escena de scroll y los botones sobre ella. */
-  --color-accent: #d5b3b5;
 
   --font-sans: var(--font-body), ui-sans-serif, system-ui, sans-serif;
-  --font-display: var(--font-display), ui-sans-serif, system-ui, sans-serif;
 
   --ease-out-strong: cubic-bezier(0.23, 1, 0.32, 1);
-  --ease-in-out-strong: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 :root {
   color-scheme: light;
-  --header-h: 4.25rem;
+  --header-h: 3.5rem;
 }
 
 html {
@@ -31,7 +28,6 @@ html {
 
 p,
 li {
-  /* evita palabras sueltas en la última línea */
   text-wrap: pretty;
 }
 
@@ -56,26 +52,98 @@ body {
   outline-color: var(--color-white);
 }
 
-/* Titulares: Archivo expandido, peso alto, tracking cerrado. */
-/* Un solo tamaño para los títulos de sección. */
-.h2-display {
-  font-size: clamp(2.5rem, 6vw, 5.5rem);
-  letter-spacing: -0.035em;
-  line-height: 0.95;
-}
-
-.display {
-  font-family: var(--font-display);
+/* Titulares: condensada pesada, mayúsculas, interlineado cerrado. */
+.t-display {
+  font-family: var(--font-display), "Arial Narrow", Impact, sans-serif;
   font-weight: 800;
-  font-stretch: 112%;
-  /* Tracking y leading dependen del tamaño: el texto chico respira más, el grande se cierra. */
-  letter-spacing: -0.02em;
-  line-height: 1.05;
+  text-transform: uppercase;
+  letter-spacing: -0.005em;
+  line-height: 0.88;
   text-wrap: balance;
 }
-.display-xl {
-  letter-spacing: -0.045em;
-  line-height: 0.9;
+.t-title {
+  font-family: var(--font-display), "Arial Narrow", Impact, sans-serif;
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 0.95;
+}
+/* Rótulos de interfaz: chicos, en mayúsculas, con tracking abierto. */
+.t-label {
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.2;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+/* [ 01 ] — índice entre corchetes. */
+.tag::before {
+  content: "[ ";
+}
+.tag::after {
+  content: " ]";
+}
+
+/* Enlaces de texto: subrayado editorial que se dibuja al pasar el cursor. */
+.link {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  transition: background-size 220ms var(--ease-out-strong);
+}
+.link:hover {
+  background-size: 0 1px;
+  background-position: 100% 100%;
+}
+
+/* Botones rectangulares, sin radio: sólido y contorno. */
+.btn {
+  display: inline-flex;
+  min-height: 2.75rem;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0 1.5rem;
+  border: 1px solid var(--color-ink);
+  background: var(--color-ink);
+  color: var(--color-white);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  transition:
+    background-color 160ms var(--ease-out-strong),
+    color 160ms var(--ease-out-strong),
+    border-color 160ms var(--ease-out-strong);
+}
+.btn:hover {
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+.btn-line {
+  background: transparent;
+  color: var(--color-ink);
+}
+.btn-line:hover {
+  background: var(--color-ink);
+  color: var(--color-white);
+}
+.on-dark .btn {
+  border-color: var(--color-white);
+  background: var(--color-white);
+  color: var(--color-ink);
+}
+.on-dark .btn:hover {
+  background: transparent;
+  color: var(--color-white);
+}
+.on-dark .btn-line {
+  background: transparent;
+  color: var(--color-white);
+}
+.on-dark .btn-line:hover {
+  background: var(--color-white);
+  color: var(--color-ink);
 }
 
 /* Controles: sin retardo de doble toque ni selección del rótulo al mantener presionado. */
@@ -89,18 +157,6 @@ button {
   user-select: none;
 }
 
-/* Botones: respuesta táctil inmediata, sin transition: all. */
-.press {
-  transition:
-    transform 160ms var(--ease-out-strong),
-    background-color 200ms var(--ease-out-strong),
-    color 200ms var(--ease-out-strong),
-    border-color 200ms var(--ease-out-strong);
-}
-.press:active {
-  transform: scale(0.97);
-}
-
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
@@ -112,7 +168,6 @@ button {
   }
 }
 
-/* Evita desbordes horizontales por elementos decorativos. */
 html,
 body {
   overflow-x: clip;
@@ -137,32 +192,12 @@ body {
     transform: translateY(0);
   }
 }
-@keyframes settle {
-  from {
-    transform: scale(1.06);
-  }
-  to {
-    transform: scale(1);
-  }
-}
 .rise {
   display: inline-block;
   animation: rise 900ms var(--ease-out-strong) both;
 }
 .fade-up {
   animation: fade-up 800ms var(--ease-out-strong) both;
-}
-.settle {
-  animation: settle 1400ms var(--ease-out-strong) both;
-}
-
-@keyframes star-spin {
-  to {
-    transform: rotate(360deg);
-  }
-}
-.star-spin {
-  animation: star-spin 28s linear infinite;
 }
 
 /* Reveal al hacer scroll: oculto solo cuando el script de <head> marcó html.js. */
@@ -254,60 +289,7 @@ body {
   -webkit-user-drag: none;
 }
 
-/* Material del header: translúcido con el contenido pasando por debajo. */
-.header-glass {
-  background-color: rgb(255 255 255 / 0.72);
-  -webkit-backdrop-filter: blur(20px) saturate(180%);
-  backdrop-filter: blur(20px) saturate(180%);
-}
-.header-glass-dark {
-  background-color: rgb(17 17 17 / 0.78);
-  -webkit-backdrop-filter: blur(20px) saturate(160%);
-  backdrop-filter: blur(20px) saturate(160%);
-}
-@media (prefers-reduced-transparency: reduce) {
-  .header-glass-dark {
-    background-color: #111111;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
-  .header-glass {
-    background-color: #ffffff;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-  }
-}
-@media (prefers-contrast: more) {
-  .header-glass {
-    background-color: #ffffff;
-    -webkit-backdrop-filter: none;
-    backdrop-filter: none;
-    border-bottom: 1px solid var(--color-ink);
-  }
-  .press {
-    outline: 1px solid currentColor;
-  }
-}
-
-/* Dos voces, como en una revista de moda: titular pesado de calle (.display) y cursiva editorial. */
-.serif {
-  font-family: var(--font-editorial), Georgia, serif;
-  font-style: italic;
-  font-weight: 450;
-  font-optical-sizing: auto;
-  letter-spacing: -0.01em;
-}
-.serif-accent {
-  font-family: var(--font-editorial), Georgia, serif;
-  font-style: italic;
-  font-weight: 450;
-  font-stretch: normal;
-  font-optical-sizing: auto;
-  letter-spacing: -0.025em;
-  font-size: 1.08em;
-}
-
-/* El buscador trae su propio botón de cerrar: se oculta la «x» azul nativa del navegador. */
+/* El buscador trae su propio botón de cerrar: se oculta la «x» nativa del navegador. */
 input[type="search"]::-webkit-search-cancel-button {
   -webkit-appearance: none;
   appearance: none;

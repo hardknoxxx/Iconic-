@@ -1,9 +1,12 @@
 /**
- * Catálogo inicial. Fuente única de verdad para tarjetas, categorías y mensajes de WhatsApp.
+ * Catálogo inicial. Fuente única de verdad para la grilla, el buscador, el carrito y los mensajes de WhatsApp.
  *
  * DATOS A CONFIRMAR POR LA TIENDA: nombres definitivos, precios (ARS), talles y descripciones.
  * Mientras `price` sea null, la tarjeta muestra «Precio a consultar».
  * Los nombres son descriptivos y salen de lo que se ve en cada fotografía.
+ *
+ * `fit`: las prendas recortadas (fondo transparente) van "contain" sobre el gris claro de la celda;
+ * las fotografías completas (modelo, percha) van "cover".
  */
 
 export type CategoryId = "tops" | "pantalones" | "noche" | "vestidos";
@@ -11,8 +14,8 @@ export type CategoryId = "tops" | "pantalones" | "noche" | "vestidos";
 export type Category = {
   id: CategoryId;
   label: string;
-  /** Foto de portada; null si todavía no hay fotografía real. */
-  image: { src: string; alt: string; position?: string } | null;
+  /** Línea breve bajo el título de la colección. Solo describe lo que hay en las fotos. */
+  blurb: string;
 };
 
 export type Product = {
@@ -23,41 +26,22 @@ export type Product = {
   price: number | null;
   sizes?: string[];
   description?: string;
-  image: { src: string; alt: string; width: number; height: number; position?: string };
+  image: { src: string; alt: string; width: number; height: number; fit: "contain" | "cover"; position?: string };
 };
 
 export const categories: Category[] = [
-  {
-    id: "tops",
-    label: "Tops",
-    image: {
-      src: "/images/products/script-crema.webp",
-      alt: "Remera oversize crema con estampa en caligrafía negra y detalles en las mangas",
-    },
-  },
-  {
-    id: "pantalones",
-    label: "Pantalones",
-    image: {
-      src: "/images/products/flare-frente.webp",
-      alt: "Modelo con jean flare de lavado claro y remera negra",
-      position: "50% 70%",
-    },
-  },
-  {
-    id: "vestidos",
-    label: "Vestidos",
-    image: null,
-  },
-  {
-    id: "noche",
-    label: "Noche",
-    image: {
-      src: "/images/products/encaje-tiras.webp",
-      alt: "Tres tops de encaje con tiras en negro, blanco y marrón",
-    },
-  },
+  { id: "tops", label: "Tops", blurb: "Remeras oversize con estampas gráficas y de caligrafía." },
+  { id: "pantalones", label: "Pantalones", blurb: "Jeans baggy y flare, y un pantalón camuflado." },
+  { id: "vestidos", label: "Vestidos", blurb: "Consultá disponibilidad por WhatsApp." },
+  { id: "noche", label: "Noche", blurb: "Tops de encaje para salir de noche." },
 ];
+
+const cut = (name: string, w: number, h: number) => ({
+  src: `/images/cutouts/${name}.webp`,
+  width: w,
+  height: h,
+  fit: "contain" as const,
+});
 
 export const products: Product[] = [
   {
@@ -65,48 +49,56 @@ export const products: Product[] = [
     name: "Remera oversize negra con cruz",
     category: "tops",
     price: null,
-    image: {
-      src: "/images/products/cruz-negra.webp",
-      alt: "Remera oversize negra con una gran cruz gráfica en blanco",
-      width: 1500,
-      height: 1500,
-    },
+    image: { ...cut("cruz", 820, 789), alt: "Remera oversize negra con una gran cruz gráfica en blanco" },
+  },
+  {
+    id: "remera-cadena-cruces",
+    name: "Remera oversize negra con cruces y cadena",
+    category: "tops",
+    price: null,
+    image: { ...cut("cadena", 820, 657), alt: "Remera oversize negra con dos cruces unidas por una cadena, estampadas en blanco" },
+  },
+  {
+    id: "remera-corazon-espinas",
+    name: "Remera oversize negra con corazón de espinas",
+    category: "tops",
+    price: null,
+    image: { ...cut("corazon", 820, 672), alt: "Remera oversize negra con un corazón de espinas y texto estampado en blanco" },
+  },
+  {
+    id: "remera-cruces-mangas",
+    name: "Remera oversize negra con cruces en las mangas",
+    category: "tops",
+    price: null,
+    image: { ...cut("cruces", 820, 676), alt: "Remera oversize negra con cruces y caligrafía estampadas en blanco" },
   },
   {
     id: "remera-script-crema",
     name: "Remera oversize crema con caligrafía",
     category: "tops",
     price: null,
-    image: {
-      src: "/images/products/script-crema.webp",
-      alt: "Remera oversize crema con estampa en caligrafía negra y detalles en las mangas",
-      width: 1500,
-      height: 1500,
-    },
+    image: { ...cut("crema", 820, 662), alt: "Remera oversize crema con estampa en caligrafía negra y detalles en las mangas" },
   },
   {
     id: "remera-script-marron",
     name: "Remera oversize marrón con caligrafía",
     category: "tops",
     price: null,
-    image: {
-      src: "/images/products/script-marron.webp",
-      alt: "Remera oversize marrón con estampa en caligrafía blanca",
-      width: 1500,
-      height: 1500,
-    },
+    image: { ...cut("marron", 820, 649), alt: "Remera oversize marrón con estampa en caligrafía blanca" },
   },
   {
-    id: "jean-baggy-negro",
+    id: "jean-baggy-negro-rosa",
     name: "Jean baggy negro con estampa rosa",
     category: "pantalones",
     price: null,
-    image: {
-      src: "/images/products/negro-rosa.webp",
-      alt: "Jean baggy negro desteñido con estampa rosa en el bolsillo trasero",
-      width: 1024,
-      height: 1280,
-    },
+    image: { ...cut("jeans-rosa", 783, 719), alt: "Jean baggy negro desteñido con estampa rosa en el bolsillo trasero" },
+  },
+  {
+    id: "jean-baggy-negro",
+    name: "Jean baggy negro desteñido",
+    category: "pantalones",
+    price: null,
+    image: { ...cut("jeans-liso", 669, 719), alt: "Jean baggy negro con lavado desteñido" },
   },
   {
     id: "jean-flare-claro",
@@ -118,6 +110,8 @@ export const products: Product[] = [
       alt: "Modelo con jean flare de lavado claro y remera negra",
       width: 543,
       height: 724,
+      fit: "cover",
+      position: "50% 70%",
     },
   },
   {
@@ -130,6 +124,7 @@ export const products: Product[] = [
       alt: "Pantalón de corte holgado con estampa camuflada en grises y bordados blancos",
       width: 543,
       height: 724,
+      fit: "cover",
     },
   },
   {
@@ -137,12 +132,14 @@ export const products: Product[] = [
     name: "Tops de encaje con tiras",
     category: "noche",
     price: null,
-    image: {
-      src: "/images/products/encaje-tiras.webp",
-      alt: "Tres tops de encaje con tiras en negro, blanco y marrón",
-      width: 960,
-      height: 1280,
-    },
+    image: { ...cut("encaje-tiras", 618, 953), alt: "Tres tops de encaje con tiras en negro, blanco y marrón" },
+  },
+  {
+    id: "tops-encaje-tubo",
+    name: "Tops de encaje tipo tubo",
+    category: "noche",
+    price: null,
+    image: { ...cut("encaje-tubo", 654, 970), alt: "Tres tops de encaje tipo tubo en negro, blanco y marrón" },
   },
   {
     id: "tops-encaje-mangas",
@@ -154,41 +151,36 @@ export const products: Product[] = [
       alt: "Tres tops de encaje de manga larga colgados en perchas: negro, blanco y marrón",
       width: 960,
       height: 1280,
+      fit: "cover",
     },
   },
 ];
 
-/** Fotografías reales que se usan como apoyo editorial (hero y sección de marca). */
+/** Fotografías de apoyo editorial (portada y cierre de colecciones). */
 export const editorial = {
-  hero: {
+  heroMain: {
     src: "/images/products/cadena-cruces.webp",
     alt: "Remera oversize negra con dos cruces unidas por una cadena, estampadas en blanco",
     width: 1500,
     height: 1500,
   },
-  heroSecondary: {
-    src: "/images/products/flare-espalda.webp",
-    alt: "Modelo de espaldas con jean flare de lavado claro",
-    width: 543,
-    height: 724,
-  },
-  brandMain: {
-    src: "/images/products/negro-rosa-espalda.webp",
-    alt: "Jean negro desteñido con estampa rosa en la cintura y el bolsillo trasero",
-    width: 1024,
+  heroSecond: {
+    src: "/images/products/encaje-tiras.webp",
+    alt: "Tres tops de encaje con tiras en negro, blanco y marrón",
+    width: 960,
     height: 1280,
   },
-  contact: {
-    src: "/images/products/baggy-claro.webp",
-    alt: "Modelo con jean baggy de lavado claro y bordado en la pierna, remera blanca",
-    width: 928,
-    height: 811,
-  },
-  brandSecondary: {
+  spreadA: {
     src: "/images/products/bermuda.webp",
     alt: "Modelo con bermuda de jean con brillos y remera azul oscura",
     width: 771,
     height: 1000,
+  },
+  spreadB: {
+    src: "/images/products/baggy-claro.webp",
+    alt: "Modelo con jean baggy de lavado claro y bordado en la pierna, remera blanca",
+    width: 928,
+    height: 811,
   },
 };
 

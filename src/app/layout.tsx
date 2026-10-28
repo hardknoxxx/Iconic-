@@ -1,27 +1,18 @@
 import type { Metadata, Viewport } from "next";
-import { Archivo, Bodoni_Moda, Jost } from "next/font/google";
+import { Barlow_Condensed, Hanken_Grotesk } from "next/font/google";
 import "lenis/dist/lenis.css";
 import "./globals.css";
 import { site } from "@/data/site";
 import { Providers } from "@/components/Providers";
 
-/* Jost: geométrica, cercana al trazo del logo; se usa para el texto corrido. */
-const body = Jost({ variable: "--font-body", subsets: ["latin"] });
+/* Texto de interfaz: grotesk neutra y legible (nombres, precios, navegación, párrafos). */
+const body = Hanken_Grotesk({ variable: "--font-body", subsets: ["latin"] });
 
-/* Voz editorial: Didone de revista de moda, en cursiva. Convive con el titular pesado de calle. */
-const editorial = Bodoni_Moda({
-  variable: "--font-editorial",
-  subsets: ["latin"],
-  style: ["italic"],
-  axes: ["opsz"],
-  weight: "variable",
-});
-
-const display = Archivo({
+/* Titulares: sans condensada y pesada, siempre en mayúsculas (ver .t-display). */
+const display = Barlow_Condensed({
   variable: "--font-display",
   subsets: ["latin"],
-  axes: ["wdth"],
-  weight: "variable",
+  weight: ["600", "800"],
 });
 
 export const metadata: Metadata = {
@@ -50,7 +41,7 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
-    <html lang="es-AR" className={`${body.variable} ${display.variable} ${editorial.variable}`} suppressHydrationWarning>
+    <html lang="es-AR" className={`${body.variable} ${display.variable}`} suppressHydrationWarning>
       <head>
         <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>

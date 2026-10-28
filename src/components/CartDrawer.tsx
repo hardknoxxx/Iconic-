@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { AnimatePresence, motion } from "framer-motion";
-import { Minus, MessageCircle, Plus, X } from "lucide-react";
 import { useEffect, useMemo, useRef } from "react";
 import { useLenis } from "lenis/react";
 import { categories, formatPrice, products } from "@/data/products";
@@ -82,7 +81,7 @@ export function CartDrawer() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.2 }}
-              className="fixed inset-0 z-[60] bg-ink/50"
+              className="fixed inset-0 z-[60] bg-ink/40"
             />
             <motion.div
               key="panel"
@@ -96,66 +95,63 @@ export function CartDrawer() {
               transition={{ duration: 0.3, ease: [0.23, 1, 0.32, 1] }}
               className="fixed inset-y-0 right-0 z-[61] flex w-full max-w-md flex-col bg-white"
             >
-              <div className="flex items-center justify-between px-5 py-4 md:px-6">
-                <h2 id="carrito-titulo" className="display text-3xl">
+              <div className="flex items-center justify-between border-b border-ink px-4 py-2 md:px-6">
+                <h2 id="carrito-titulo" className="t-display text-4xl">
                   Carrito
                 </h2>
                 <button
                   ref={closeBtn}
                   type="button"
                   onClick={closeCart}
-                  aria-label="Cerrar carrito"
-                  className="press -mr-2 inline-flex size-11 items-center justify-center rounded-full hover:bg-paper"
+                  className="t-label -mr-1 inline-flex min-h-11 items-center px-1 underline underline-offset-4 hover:no-underline"
                 >
-                  <X size={22} aria-hidden />
+                  Cerrar<span className="sr-only"> carrito</span>
                 </button>
               </div>
 
               {rows.length === 0 ? (
-                <div className="flex flex-1 flex-col justify-center px-5 pb-16 md:px-6">
-                  <p className="text-xl leading-snug">Todavía no agregaste prendas.</p>
-                  <p className="mt-2 text-graphite">
-                    Tocá el botón + de cualquier prenda y armá tu consulta: te llevamos a WhatsApp con la lista lista para enviar.
+                <div className="flex flex-1 flex-col justify-center px-4 pb-16 md:px-6">
+                  <p className="text-lg leading-snug">Todavía no agregaste prendas.</p>
+                  <p className="mt-2 text-sm leading-relaxed text-graphite">
+                    Tocá «Agregar +» en cualquier prenda y armá tu consulta: te llevamos a WhatsApp con la lista lista para enviar.
                   </p>
-                  <button
-                    type="button"
-                    onClick={closeCart}
-                    className="press mt-6 inline-flex h-12 w-fit items-center rounded-full bg-ink px-7 text-base font-medium text-white hover:bg-graphite"
-                  >
+                  <button type="button" onClick={closeCart} className="btn btn-line mt-6 w-fit">
                     Seguir mirando
                   </button>
                 </div>
               ) : (
                 <>
-                  <ul className="flex-1 space-y-3 overflow-y-auto px-5 pb-4 md:px-6">
+                  <ul className="flex-1 overflow-y-auto px-4 md:px-6">
                     {rows.map(({ id, qty, product }) => (
-                      <li key={id} className="flex gap-4 bg-paper p-3">
-                        <Image
-                          src={product.image.src}
-                          alt=""
-                          width={product.image.width}
-                          height={product.image.height}
-                          sizes="80px"
-                          className="size-20 shrink-0 object-cover"
-                        />
+                      <li key={id} className="flex gap-4 border-b border-line py-4">
+                        <div className="relative size-24 shrink-0 bg-paper">
+                          <Image
+                            src={product.image.src}
+                            alt=""
+                            fill
+                            sizes="96px"
+                            style={{ objectPosition: product.image.position }}
+                            className={product.image.fit === "contain" ? "object-contain p-1" : "object-cover"}
+                          />
+                        </div>
                         <div className="flex min-w-0 flex-1 flex-col justify-between">
                           <div>
-                            <p className="text-[0.9375rem] font-medium leading-snug">{product.name}</p>
-                            <p className="mt-0.5 text-[0.8125rem] text-graphite">
-                              {categories.find((c) => c.id === product.category)?.label} · {formatPrice(product.price)}
+                            <p className="t-label text-balance">{product.name}</p>
+                            <p className="t-label mt-1 text-mid">
+                              {categories.find((c) => c.id === product.category)?.label} — {formatPrice(product.price)}
                             </p>
                           </div>
-                          <div className="mt-2 flex items-center justify-between">
-                            <div className="inline-flex items-center rounded-full bg-white">
+                          <div className="flex items-center justify-between">
+                            <div className="inline-flex items-center border border-line">
                               <button
                                 type="button"
                                 onClick={() => setQty(id, qty - 1)}
                                 aria-label={`Quitar una unidad de ${product.name}`}
-                                className="press inline-flex size-11 items-center justify-center rounded-full hover:bg-line"
+                                className="inline-flex size-11 items-center justify-center text-lg hover:bg-paper"
                               >
-                                <Minus size={16} aria-hidden />
+                                <span aria-hidden>−</span>
                               </button>
-                              <span aria-live="polite" className="min-w-6 text-center text-sm font-medium">
+                              <span aria-live="polite" className="t-label min-w-6 text-center">
                                 {qty}
                               </span>
                               <button
@@ -163,15 +159,15 @@ export function CartDrawer() {
                                 onClick={() => setQty(id, qty + 1)}
                                 disabled={qty >= MAX_ITEM_QTY}
                                 aria-label={`Agregar una unidad de ${product.name}`}
-                                className="press inline-flex size-11 items-center justify-center rounded-full hover:bg-line disabled:opacity-40"
+                                className="inline-flex size-11 items-center justify-center text-lg hover:bg-paper disabled:opacity-40"
                               >
-                                <Plus size={16} aria-hidden />
+                                <span aria-hidden>+</span>
                               </button>
                             </div>
                             <button
                               type="button"
                               onClick={() => removeFromCart(id)}
-                              className="press inline-flex h-11 items-center rounded-full px-3 text-sm text-graphite underline-offset-4 hover:text-ink hover:underline"
+                              className="t-label inline-flex min-h-11 items-center px-1 text-graphite underline underline-offset-4 hover:text-ink hover:no-underline"
                             >
                               Quitar<span className="sr-only"> {product.name}</span>
                             </button>
@@ -181,30 +177,24 @@ export function CartDrawer() {
                     ))}
                   </ul>
 
-                  <div className="space-y-3 bg-paper px-5 py-5 md:px-6">
-                    <div className="flex items-baseline justify-between">
-                      <p className="text-base">
+                  <div className="space-y-3 border-t border-ink bg-white px-4 py-4 md:px-6">
+                    <div className="t-label flex items-baseline justify-between">
+                      <p>
                         {count} {count === 1 ? "prenda" : "prendas"}
                       </p>
-                      <p className="text-base font-medium">{total === null ? "Precios a consultar" : formatPrice(total)}</p>
+                      <p>{total === null ? "Precios a consultar" : formatPrice(total)}</p>
                     </div>
-                    <a
-                      href={whatsappUrl(message)}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="press inline-flex h-14 w-full items-center justify-center gap-2 rounded-full bg-ink text-base font-medium text-white hover:bg-graphite"
-                    >
-                      <MessageCircle size={20} aria-hidden />
+                    <a href={whatsappUrl(message)} target="_blank" rel="noopener noreferrer" className="btn w-full">
                       Consultar por WhatsApp
                       <span className="sr-only"> (se abre en una pestaña nueva)</span>
                     </a>
-                    <p className="text-[0.8125rem] leading-snug text-graphite">
+                    <p className="text-xs leading-snug text-graphite">
                       Se abre WhatsApp con tu lista ya escrita. La compra se cierra por chat con la tienda; acá no se paga.
                     </p>
                     <button
                       type="button"
                       onClick={clearCart}
-                      className="press inline-flex h-11 items-center text-sm text-graphite underline-offset-4 hover:text-ink hover:underline"
+                      className="t-label inline-flex min-h-11 items-center text-graphite underline underline-offset-4 hover:text-ink hover:no-underline"
                     >
                       Vaciar carrito
                     </button>

@@ -14,7 +14,7 @@ export function useAnchorScroll() {
       const el = document.querySelector<HTMLElement>(hash);
       if (!el) return false;
       // Posición absoluta calculada a mano: el hero está fijado (pin) y no se puede medir como un ancla común.
-      const header = parseFloat(getComputedStyle(document.documentElement).fontSize) * 4.25;
+      const header = parseFloat(getComputedStyle(document.documentElement).fontSize) * 3.5;
       const y = hash === "#inicio" ? 0 : Math.round(el.getBoundingClientRect().top + window.scrollY - header);
       if (lenis) {
         lenis.scrollTo(y, { immediate: reduce, duration: 1.4 });
