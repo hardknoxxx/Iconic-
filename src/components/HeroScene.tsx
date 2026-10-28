@@ -7,7 +7,7 @@ import { MorphSVGPlugin } from "gsap/MorphSVGPlugin";
 import { useGSAP } from "@gsap/react";
 import { useReducedMotion } from "framer-motion";
 import { useRef } from "react";
-import { MessageCircle } from "lucide-react";
+import { ArrowDown, MessageCircle } from "lucide-react";
 import { address } from "@/data/site";
 import { generalMessage, whatsappUrl } from "@/lib/whatsapp";
 import { blobShapes } from "@/lib/blob";
@@ -128,7 +128,7 @@ function Scene() {
             scrollTrigger: {
               trigger: root.current,
               start: "top top",
-              end: () => "+=" + window.innerHeight * (desktop ? 3.4 : 3.8),
+              end: () => "+=" + window.innerHeight * (desktop ? 2.4 : 2.6),
               pin: true,
               scrub: 0.6,
               anticipatePin: 1,
@@ -144,7 +144,7 @@ function Scene() {
           gsap.set(q(".final"), { autoAlpha: 0, y: 40 });
 
           // 1 — portada → «De día»
-          tl.to(q(".hero-text"), { autoAlpha: 0, y: -70, scale: 1.05, duration: 0.7 }, 0)
+          tl.to(q(".hero-text, .scroll-cue"), { autoAlpha: 0, y: -70, scale: 1.05, duration: 0.7 }, 0)
             .to(q(".blob"), { ...c.scenes[0], duration: 1.3 }, 0.1)
             .to(q(".blob-path"), { morphSVG: blobShapes.dia, duration: 1.3, ease: "none" }, 0.1)
             .to(q(".grp-a"), { ...c.aDay, duration: 1.3 }, 0.1)
@@ -183,7 +183,7 @@ function Scene() {
   );
 
   return (
-    <section id="inicio" ref={root} className="relative bg-paper">
+    <section id="inicio" ref={root} data-nav="inicio" className="relative bg-paper">
       <div className="relative h-svh overflow-hidden">
         {/* Mancha de color: al principio cubre toda la pantalla y se retira hasta quedar como forma. */}
         <svg
@@ -217,6 +217,15 @@ function Scene() {
           ))}
         </div>
 
+        {/* Mismo contenido de las tarjetas, siempre disponible para lectores de pantalla */}
+        <ul className="sr-only">
+          {cards.map((card) => (
+            <li key={card.key}>
+              <strong>{card.title}.</strong> {card.text}
+            </li>
+          ))}
+        </ul>
+
         {/* Portada */}
         <div className="hero-text absolute inset-x-0 top-[calc(var(--header-h)+1.5rem)] z-20 px-5 text-center md:top-[17vh]">
           <h1 className="display display-xl mx-auto text-[clamp(2.9rem,9vw,8.5rem)]">
@@ -238,10 +247,16 @@ function Scene() {
           </div>
         </div>
 
-        {/* Tarjetas de cada escena */}
+        {/* Pista de scroll en el primer cuadro */}
+        <p className="scroll-cue absolute bottom-6 left-10 z-20 hidden items-center gap-2 text-sm font-medium md:flex" aria-hidden>
+          <ArrowDown size={16} /> Seguí bajando
+        </p>
+
+        {/* Tarjetas de cada escena: decorativas para lectores de pantalla (el texto equivalente está arriba, en .sr-only) */}
         {cards.map((card, i) => (
           <article
             key={card.key}
+            aria-hidden
             className={`card card-${i} absolute inset-x-4 bottom-5 z-20 bg-white p-5 md:inset-x-auto md:bottom-auto md:top-[calc(50%-6rem)] md:w-[23rem] md:p-7 ${
               i === 1 ? "md:left-[7vw]" : "md:right-[7vw]"
             }`}
@@ -249,9 +264,6 @@ function Scene() {
           >
             <h2 className="serif text-4xl md:text-5xl">{card.title}</h2>
             <p className="mt-2 text-base leading-relaxed text-graphite">{card.text}</p>
-            <AnchorLink href="#coleccion" className="press mt-4 inline-flex h-11 items-center rounded-full bg-paper px-5 text-sm font-medium hover:bg-line">
-              Ver la colección
-            </AnchorLink>
           </article>
         ))}
 

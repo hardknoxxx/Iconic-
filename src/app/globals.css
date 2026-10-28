@@ -260,7 +260,17 @@ body {
   -webkit-backdrop-filter: blur(20px) saturate(180%);
   backdrop-filter: blur(20px) saturate(180%);
 }
+.header-glass-dark {
+  background-color: rgb(17 17 17 / 0.78);
+  -webkit-backdrop-filter: blur(20px) saturate(160%);
+  backdrop-filter: blur(20px) saturate(160%);
+}
 @media (prefers-reduced-transparency: reduce) {
+  .header-glass-dark {
+    background-color: #111111;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
   .header-glass {
     background-color: #ffffff;
     -webkit-backdrop-filter: none;
@@ -295,4 +305,11 @@ body {
   font-optical-sizing: auto;
   letter-spacing: -0.025em;
   font-size: 1.08em;
+}
+
+/* El buscador trae su propio botón de cerrar: se oculta la «x» azul nativa del navegador. */
+input[type="search"]::-webkit-search-cancel-button {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
 }

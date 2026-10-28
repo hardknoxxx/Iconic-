@@ -26,6 +26,9 @@ npm run build && npm start
 
 ## Decisiones técnicas
 
+- **Carrito → WhatsApp** (`src/lib/shop-store.ts`, `CartDrawer.tsx`): el botón + de cada prenda la suma al carrito (se guarda en el navegador); «Consultar por WhatsApp» abre el chat con un mensaje que lista todo lo del carrito (`cartMessage` en `src/lib/whatsapp.ts`). No hay pago ni inventario. Si una prenda tiene `price`, el carrito suma el total; si no, dice «Precios a consultar».
+- **Buscador** del header: filtra la grilla por nombre o categoría (`src/lib/search.ts`).
+
 - **Portada con scroll animado** (`src/components/HeroScene.tsx`): sección fijada con GSAP ScrollTrigger; una mancha se deforma con MorphSVG entre escenas y las prendas (recortes en `public/images/cutouts/`) entran por los costados. El color de acento (rosa arcilla) está en `--color-accent` (`globals.css`). Con movimiento reducido se muestra una versión estática.
 
 - **Tarjetas de producto**: hover/foco en mouse (CSS), toque para abrir/cerrar en táctil; el botón de WhatsApp es independiente.

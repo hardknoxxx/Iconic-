@@ -8,7 +8,7 @@ export const site = {
   tagline: "Ropa urbana unisex para adultos",
   description:
     "ICONIC es una tienda de ropa urbana unisex en Puerto Iguazú, Misiones: tops, pantalones, vestidos y prendas para salir de noche. Consultá por WhatsApp o visitá el local.",
-  url: "https://iconic.example", // TODO: reemplazar por el dominio real al publicar
+  url: "https://iconic-hardknoxxx.vercel.app", // TODO: cambiar por el dominio propio cuando exista
   locale: "es_AR",
 } as const;
 

@@ -4,6 +4,8 @@ import { MotionConfig, useReducedMotion } from "framer-motion";
 import { ReactLenis } from "lenis/react";
 import type { ReactNode } from "react";
 import { GsapLenis } from "./GsapLenis";
+import { CartDrawer } from "./CartDrawer";
+import { SearchPanel } from "./SearchPanel";
 
 /**
  * Lenis hace scroll suave sobre el scroll nativo (no usa transforms), así que convive
@@ -21,6 +23,8 @@ export function Providers({ children }: { children: ReactNode }) {
       >
         <GsapLenis />
         {children}
+        <SearchPanel />
+        <CartDrawer />
       </ReactLenis>
     </MotionConfig>
   );

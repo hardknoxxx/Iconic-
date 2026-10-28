@@ -16,13 +16,13 @@ const paymentIcons: Record<PaymentId, typeof Banknote> = {
 
 export function Contact() {
   return (
-    <section id="contacto" aria-labelledby="contacto-titulo" className="bg-white py-20 md:py-32">
+    <section id="contacto" data-nav="contacto" aria-labelledby="contacto-titulo" className="bg-white py-20 md:py-32">
       <div className="mx-auto max-w-[1480px] px-5 md:px-10">
         <Reveal>
           <h2 id="contacto-titulo" className="display h2-display">
             Pasá por
             <br />
-            <span className="serif-accent">el local</span>
+            el local
           </h2>
           <p className="mt-6 max-w-xl text-lg leading-relaxed text-graphite">
             Te esperamos en {address.street} para que veas y te pruebes las prendas. Si preferís, escribinos por
@@ -124,13 +124,13 @@ export function Contact() {
 
               <div>
                 <h3 className="text-base font-semibold">Medios de pago</h3>
-                <ul className="mt-4 flex flex-wrap gap-2">
+                <ul className="mt-4 flex flex-wrap gap-x-5 gap-y-3">
                   {payments.map((m) => {
                     const Icon = paymentIcons[m.id];
                     return (
                       <li
                         key={m.id}
-                        className="inline-flex h-10 items-center gap-2 rounded-full bg-paper px-4 text-sm"
+                        className="inline-flex items-center gap-2 text-sm"
                       >
                         <Icon size={16} aria-hidden /> {m.label}
                       </li>
